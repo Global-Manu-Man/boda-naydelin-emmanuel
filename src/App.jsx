@@ -847,40 +847,48 @@ function App() {
                           transform: 'rotate(-2deg)'
                         }}></div>
 
-                        {/* QR Container */}
-                        <div className="relative w-full h-full rounded-2xl p-4 cursor-pointer border-2 transition-all duration-300 group-hover:border-amber-400" style={{
-                          background: 'white',
-                          borderColor: '#e8d5c4',
-                          boxShadow: '0 4px 20px rgba(139, 111, 71, 0.1)'
-                        }}>
-                          {/* Aquí va tu imagen QR real */}
-                          <div className="w-full h-full bg-gradient-to-br from-stone-50 to-stone-100 rounded-xl flex flex-col items-center justify-center relative overflow-hidden">
-                            {/* Pattern background */}
-                            <div className="absolute inset-0 opacity-5" style={{
-                              backgroundImage: `url("data:image/svg+xml,%3Csvg width='60' height='60' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M0 0h60v60H0z' fill='none'/%3E%3Cpath d='M30 0v30M0 30h30' stroke='%238b6f47' stroke-width='1'/%3E%3C/svg%3E")`,
-                              backgroundSize: '30px 30px'
+                        {/* QR Code */}
+                        <a
+                          href="https://pub-81bfb9260e2a480aa554ab719e15c0d9.r2.dev/qr.jpg"
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          className="group"
+                        >
+                          <div className="relative w-48 h-48 sm:w-56 sm:h-56 transition-all duration-300 group-hover:scale-105">
+                            {/* QR Background with shadow */}
+                            <div className="absolute inset-0 rounded-2xl" style={{
+                              background: 'white',
+                              boxShadow: '0 8px 30px rgba(139, 111, 71, 0.15)',
+                              transform: 'rotate(-2deg)'
                             }}></div>
 
-                            {/* Icon */}
-                            <div className="relative z-10">
-                              <div className="text-6xl mb-3">📸</div>
-                              <p className="text-xs text-stone-500 font-medium" style={{
-                                fontFamily: "'Crimson Text', serif"
-                              }}>
-                                QR Code
-                              </p>
-                              <p className="text-[10px] text-amber-600 mt-2 font-semibold animate-pulse">
-                                Haz clic aquí
-                              </p>
+                            {/* QR Container */}
+                            <div className="relative w-full h-full rounded-2xl p-4 cursor-pointer border-2 transition-all duration-300 group-hover:border-amber-400" style={{
+                              background: 'white',
+                              borderColor: '#e8d5c4',
+                              boxShadow: '0 4px 20px rgba(139, 111, 71, 0.1)'
+                            }}>
+                              {/* IMAGEN DEL QR - Reemplaza la ruta con tu imagen */}
+                              <img
+                                src="https://pub-81bfb9260e2a480aa554ab719e15c0d9.r2.dev/qr.jpg"
+                                alt="QR Code para compartir fotos"
+                                className="w-full h-full object-contain rounded-xl"
+                              />
+
+                              {/* Corner decorations */}
+                              <div className="absolute top-2 left-2 w-4 h-4 border-t-2 border-l-2 rounded-tl" style={{ borderColor: '#d4c4b0' }}></div>
+                              <div className="absolute top-2 right-2 w-4 h-4 border-t-2 border-r-2 rounded-tr" style={{ borderColor: '#d4c4b0' }}></div>
+                              <div className="absolute bottom-2 left-2 w-4 h-4 border-b-2 border-l-2 rounded-bl" style={{ borderColor: '#d4c4b0' }}></div>
+                              <div className="absolute bottom-2 right-2 w-4 h-4 border-b-2 border-r-2 rounded-br" style={{ borderColor: '#d4c4b0' }}></div>
                             </div>
 
-                            {/* Corner decorations */}
-                            <div className="absolute top-2 left-2 w-4 h-4 border-t-2 border-l-2 rounded-tl" style={{ borderColor: '#d4c4b0' }}></div>
-                            <div className="absolute top-2 right-2 w-4 h-4 border-t-2 border-r-2 rounded-tr" style={{ borderColor: '#d4c4b0' }}></div>
-                            <div className="absolute bottom-2 left-2 w-4 h-4 border-b-2 border-l-2 rounded-bl" style={{ borderColor: '#d4c4b0' }}></div>
-                            <div className="absolute bottom-2 right-2 w-4 h-4 border-b-2 border-r-2 rounded-br" style={{ borderColor: '#d4c4b0' }}></div>
+                            {/* Floating elements */}
+                            <div className="absolute -top-2 -right-2 w-6 h-6 rounded-full animate-bounce" style={{
+                              background: 'linear-gradient(135deg, #daa520 0%, #b8860b 100%)',
+                              animationDuration: '3s'
+                            }}></div>
                           </div>
-                        </div>
+                        </a>
 
                         {/* Floating elements */}
                         <div className="absolute -top-2 -right-2 w-6 h-6 rounded-full animate-bounce" style={{
