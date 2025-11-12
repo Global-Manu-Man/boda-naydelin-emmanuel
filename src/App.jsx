@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { MapPin, Clock, Calendar, Gift, Phone, Mail, Instagram, Facebook } from 'lucide-react';
+import CountdownTimer from "./components/CountDown";
 
 function App() {
   const [isOpened, setIsOpened] = useState(false);
@@ -14,26 +15,42 @@ function App() {
     childrenCount: '0'
   });
 
-  // Wedding date - Cambiar a la fecha real
+  // Wedding date - 28 de Febrero 2025, 5:00 PM
   const weddingDate = new Date('2025-02-28T17:00:00');
 
   useEffect(() => {
-    const timer = setInterval(() => {
+    const calculateTimeLeft = () => {
       const now = new Date();
-      const difference = weddingDate - now;
+      const difference = weddingDate.getTime() - now.getTime();
 
       if (difference > 0) {
-        setTimeLeft({
-          days: Math.floor(difference / (1000 * 60 * 60 * 24)),
-          hours: Math.floor((difference / (1000 * 60 * 60)) % 24),
-          minutes: Math.floor((difference / 1000 / 60) % 60),
-          seconds: Math.floor((difference / 1000) % 60)
-        });
-      }
-    }, 1000);
+        const days = Math.floor(difference / (1000 * 60 * 60 * 24));
+        const hours = Math.floor((difference % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+        const minutes = Math.floor((difference % (1000 * 60 * 60)) / (1000 * 60));
+        const seconds = Math.floor((difference % (1000 * 60)) / 1000);
 
+        console.log('Fecha actual:', now);
+        console.log('Fecha boda:', weddingDate);
+        console.log('Diferencia (ms):', difference);
+        console.log('Días:', Math.floor(difference / (1000 * 60 * 60 * 24)));
+
+
+        setTimeLeft({ days, hours, minutes, seconds });
+      } else {
+        // Si la fecha ya pasó, mostrar ceros
+        setTimeLeft({ days: 0, hours: 0, minutes: 0, seconds: 0 });
+      }
+    };
+
+    // Calcular inmediatamente al cargar
+    calculateTimeLeft();
+
+    // Actualizar cada segundo
+    const timer = setInterval(calculateTimeLeft, 1000);
+
+    // Limpiar el intervalo al desmontar
     return () => clearInterval(timer);
-  }, []);
+  }, []); // Array vacío para que solo se ejecute una vez
 
   // Handle RSVP form changes
   const handleAdultsCountChange = (count) => {
@@ -57,34 +74,34 @@ function App() {
     setShowRSVPModal(false);
   };
 
-  // Watercolor floral SVG component - fully responsive
-  const FloralTop = () => (
-    <svg
-      width="100%"
-      height="auto"
-      viewBox="0 0 200 100"
-      fill="none"
-      xmlns="http://www.w3.org/2000/svg"
-      className="mx-auto max-w-[150px] sm:max-w-[200px]"
-    >
-      <g opacity="0.5">
-        <circle cx="100" cy="50" r="15" fill="#e8d5c4" opacity="0.4" />
-        <circle cx="100" cy="50" r="10" fill="#d4b5a0" opacity="0.5" />
-        <circle cx="95" cy="48" r="8" fill="#c4b5a0" opacity="0.4" />
-        <circle cx="105" cy="48" r="8" fill="#c4b5a0" opacity="0.4" />
-        <path d="M85 55 Q75 65 65 70" stroke="#a89080" strokeWidth="1.5" fill="none" opacity="0.3" />
-        <ellipse cx="60" cy="68" rx="6" ry="10" fill="#d4c4b0" opacity="0.4" transform="rotate(-30 60 68)" />
-        <ellipse cx="70" cy="62" rx="5" ry="8" fill="#c4b5a0" opacity="0.4" transform="rotate(-20 70 62)" />
-        <ellipse cx="80" cy="58" rx="4" ry="7" fill="#b5a090" opacity="0.3" transform="rotate(-15 80 58)" />
-        <path d="M115 55 Q125 65 135 70" stroke="#a89080" strokeWidth="1.5" fill="none" opacity="0.3" />
-        <ellipse cx="140" cy="68" rx="6" ry="10" fill="#d4c4b0" opacity="0.4" transform="rotate(30 140 68)" />
-        <ellipse cx="130" cy="62" rx="5" ry="8" fill="#c4b5a0" opacity="0.4" transform="rotate(20 130 62)" />
-        <ellipse cx="120" cy="58" rx="4" ry="7" fill="#b5a090" opacity="0.3" transform="rotate(15 120 58)" />
-        <ellipse cx="50" cy="75" rx="4" ry="6" fill="#9d8b7a" opacity="0.25" transform="rotate(-45 50 75)" />
-        <ellipse cx="150" cy="75" rx="4" ry="6" fill="#9d8b7a" opacity="0.25" transform="rotate(45 150 75)" />
-      </g>
-    </svg>
-  );
+// Watercolor floral SVG component - fully responsive
+const FloralTop = () => (
+  <svg 
+    width="200" 
+    height="100"
+    viewBox="0 0 200 100" 
+    fill="none" 
+    xmlns="http://www.w3.org/2000/svg" 
+    className="mx-auto max-w-[150px] sm:max-w-[200px]"
+  >
+    <g opacity="0.5">
+      <circle cx="100" cy="50" r="15" fill="#e8d5c4" opacity="0.4"/>
+      <circle cx="100" cy="50" r="10" fill="#d4b5a0" opacity="0.5"/>
+      <circle cx="95" cy="48" r="8" fill="#c4b5a0" opacity="0.4"/>
+      <circle cx="105" cy="48" r="8" fill="#c4b5a0" opacity="0.4"/>
+      <path d="M85 55 Q75 65 65 70" stroke="#a89080" strokeWidth="1.5" fill="none" opacity="0.3"/>
+      <ellipse cx="60" cy="68" rx="6" ry="10" fill="#d4c4b0" opacity="0.4" transform="rotate(-30 60 68)"/>
+      <ellipse cx="70" cy="62" rx="5" ry="8" fill="#c4b5a0" opacity="0.4" transform="rotate(-20 70 62)"/>
+      <ellipse cx="80" cy="58" rx="4" ry="7" fill="#b5a090" opacity="0.3" transform="rotate(-15 80 58)"/>
+      <path d="M115 55 Q125 65 135 70" stroke="#a89080" strokeWidth="1.5" fill="none" opacity="0.3"/>
+      <ellipse cx="140" cy="68" rx="6" ry="10" fill="#d4c4b0" opacity="0.4" transform="rotate(30 140 68)"/>
+      <ellipse cx="130" cy="62" rx="5" ry="8" fill="#c4b5a0" opacity="0.4" transform="rotate(20 130 62)"/>
+      <ellipse cx="120" cy="58" rx="4" ry="7" fill="#b5a090" opacity="0.3" transform="rotate(15 120 58)"/>
+      <ellipse cx="50" cy="75" rx="4" ry="6" fill="#9d8b7a" opacity="0.25" transform="rotate(-45 50 75)"/>
+      <ellipse cx="150" cy="75" rx="4" ry="6" fill="#9d8b7a" opacity="0.25" transform="rotate(45 150 75)"/>
+    </g>
+  </svg>
+);
 
   // Golden confetti particles
   const GoldenConfetti = () => (
@@ -988,66 +1005,8 @@ function App() {
               </div>
             </div>
 
-            {/* Countdown timer */}
-            <div className="text-center mb-12 sm:mb-16 p-6 sm:p-8 rounded mx-2 sm:mx-0" style={{
-              background: 'linear-gradient(to bottom, rgba(245,241,237,0.5), rgba(235,229,223,0.3))'
-            }}>
-              <p className="mb-4 sm:mb-6 text-base sm:text-lg" style={{
-                fontFamily: "'Cormorant', serif",
-                color: '#6b5d52',
-                fontWeight: '400'
-              }}>
-                Faltan
-              </p>
-              <div className="flex justify-center items-center space-x-3 sm:space-x-6">
-                <div className="text-center">
-                  <div className="text-2xl sm:text-3xl md:text-4xl font-bold mb-1" style={{ color: '#8b6f47' }}>
-                    {timeLeft.days}
-                  </div>
-                  <div className="text-xs sm:text-sm" style={{
-                    fontFamily: "'Crimson Text', serif",
-                    color: '#9b8b7a'
-                  }}>
-                    días
-                  </div>
-                </div>
-                <div className="text-2xl sm:text-3xl" style={{ color: '#c4b5a0' }}>:</div>
-                <div className="text-center">
-                  <div className="text-2xl sm:text-3xl md:text-4xl font-bold mb-1" style={{ color: '#8b6f47' }}>
-                    {timeLeft.hours}
-                  </div>
-                  <div className="text-xs sm:text-sm" style={{
-                    fontFamily: "'Crimson Text', serif",
-                    color: '#9b8b7a'
-                  }}>
-                    hrs
-                  </div>
-                </div>
-                <div className="text-2xl sm:text-3xl" style={{ color: '#c4b5a0' }}>:</div>
-                <div className="text-center">
-                  <div className="text-2xl sm:text-3xl md:text-4xl font-bold mb-1" style={{ color: '#8b6f47' }}>
-                    {timeLeft.minutes}
-                  </div>
-                  <div className="text-xs sm:text-sm" style={{
-                    fontFamily: "'Crimson Text', serif",
-                    color: '#9b8b7a'
-                  }}>
-                    min
-                  </div>
-                </div>
-                <div className="text-2xl sm:text-3xl" style={{ color: '#c4b5a0' }}>:</div>
-                <div className="text-center">
-                  <div className="text-2xl sm:text-3xl md:text-4xl font-bold mb-1" style={{ color: '#8b6f47' }}>
-                    {timeLeft.seconds}
-                  </div>
-                  <div className="text-xs sm:text-sm" style={{
-                    fontFamily: "'Crimson Text', serif",
-                    color: '#9b8b7a'
-                  }}>
-                    seg
-                  </div>
-                </div>
-              </div>
+            <div className="App">
+             <CountdownTimer />
             </div>
 
             {/* Social media */}
