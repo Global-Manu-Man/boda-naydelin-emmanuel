@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 
 const CountdownTimer = () => {
-  const [eventName, setEventName] = useState("Boda");
+  const [eventName, setEventName] = useState("Nuestra Boda");
   const [eventDate, setEventDate] = useState("2026-02-28");
   const [countdownStarted, setCountdownStarted] = useState(true);
   const [timeRemaining, setTimeRemaining] = useState(0);
