@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { MapPin, Clock, Calendar, Gift, Phone, Mail, Instagram, Facebook } from 'lucide-react';
 import CountdownTimer from "./components/CountDown";
+import LocationMaps from "./components/LocationMaps";
 
 function App() {
   const [isOpened, setIsOpened] = useState(false);
@@ -752,6 +753,10 @@ const FloralTop = () => (
                   <span>WhatsApp</span>
                 </a>
               </div>
+            </div>
+
+            <div className="App">
+             <LocationMaps />
             </div>
 
             {/* Gift registry */}
