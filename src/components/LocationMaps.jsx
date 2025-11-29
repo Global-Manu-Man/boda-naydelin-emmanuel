@@ -62,14 +62,14 @@ const LocationMaps = () => {
               fontFamily: "'Crimson Text', serif",
               color: '#8b6f47'
             }}>
-              📅 5:00 PM
+              📅 2:00 PM
             </p>
           </div>
 
           {/* Map */}
           <div className="relative h-64 sm:h-80 bg-stone-100">
             <iframe
-              src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3762.5!2d-99.1332!3d19.4326!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x0%3A0x0!2zMTnCsDI1JzU3LjQiTiA5OcKwMDcnNTkuNSJX!5e0!3m2!1ses!2smx!4v1234567890!5m2!1ses!2smx"
+              src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3772.205875566676!2d-97.03359732068984!3d19.010647676917454!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x85c4e0e117a773a7%3A0x5349cb46978c5788!2sParroquia%20San%20Francisco%20de%20As%C3%ADs!5e0!3m2!1ses-419!2smx!4v1764391281258!5m2!1ses-419!2smx"
               width="100%"
               height="100%"
               style={{ border: 0 }}
@@ -129,13 +129,13 @@ const LocationMaps = () => {
               fontFamily: "'Crimson Text', serif",
               color: '#6b5d52'
             }}>
-              Jardín Los Olivos
+              Salón "La Cantera"
             </p>
             <p className="text-sm mb-3" style={{
               fontFamily: "'Crimson Text', serif",
               color: '#9b8b7a'
             }}>
-              Camino Real 456, Valle Verde
+              C. 9 Ricardo Flores Magón 108, La Garita, 94160 Chocamán, Ver.
             </p>
             <p className="text-sm font-medium" style={{
               fontFamily: "'Crimson Text', serif",
@@ -148,7 +148,7 @@ const LocationMaps = () => {
           {/* Map */}
           <div className="relative h-64 sm:h-80 bg-stone-100">
             <iframe
-              src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3763.5!2d-99.1532!3d19.4126!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x0%3A0x0!2zMTnCsDI0JzQ1LjQiTiA5OcKwMDknMTEuNSJX!5e0!3m2!1ses!2smx!4v1234567891!5m2!1ses!2smx"
+              src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3772.280009355161!2d-97.0296635!3d19.0073792!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x85c4e1459bcbb437%3A0xa8b32ae6fb4a258e!2zU2Fsw7NuICJMYSBDYW50ZXJhIg!5e0!3m2!1ses-419!2smx!4v1764390968992!5m2!1ses-419!2smx"
               width="100%"
               height="100%"
               style={{ border: 0 }}

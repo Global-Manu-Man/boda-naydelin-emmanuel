@@ -165,14 +165,23 @@ const FloralTop = () => (
                   color: '#8b6f47',
                   textShadow: '1px 1px 2px rgba(0,0,0,0.05)'
                 }}>
-                  Emmanuel
+                  Naydelin
                 </h1>
+
                 <h1 className="text-5xl sm:text-6xl lg:text-7xl tracking-wide" style={{
                   fontFamily: "'Alex Brush', cursive",
                   color: '#8b6f47',
                   textShadow: '1px 1px 2px rgba(0,0,0,0.05)'
                 }}>
-                  Naydelin
+                  &
+                </h1>
+
+                <h1 className="text-5xl sm:text-6xl lg:text-7xl tracking-wide" style={{
+                  fontFamily: "'Alex Brush', cursive",
+                  color: '#8b6f47',
+                  textShadow: '1px 1px 2px rgba(0,0,0,0.05)'
+                }}>
+                  Emmanuel
                 </h1>
               </div>
 
@@ -495,7 +504,7 @@ const FloralTop = () => (
             <div className="absolute inset-0 bg-gradient-to-b from-transparent via-transparent to-white/90 z-10"></div>
             <img
               src="https://images.unsplash.com/photo-1519741497674-611481863552?w=1000&h=600&fit=crop"
-              alt="Emmanuel y Naydelin"
+              alt="Naydelin y Emmanuel"
               className="w-full h-full object-cover"
             />
           </div>
@@ -511,7 +520,7 @@ const FloralTop = () => (
               fontFamily: "'Alex Brush', cursive",
               color: '#8b6f47'
             }}>
-              Emmanuel & Naydelin
+              Naydelin & Emmanuel
             </h1>
           </div>
 
@@ -558,7 +567,7 @@ const FloralTop = () => (
                   color: '#6b5d52'
                 }}>
                   <p className="mb-2">Viernes, 28 de Febrero de 2025</p>
-                  <p className="mb-4 sm:mb-6">5:00 PM</p>
+                  <p className="mb-4 sm:mb-6">2:00 PM</p>
                 </div>
 
                 <div className="pt-2">
@@ -572,7 +581,7 @@ const FloralTop = () => (
                     fontFamily: "'Crimson Text', serif",
                     color: '#9b8b7a'
                   }}>
-                    Av. Principal 123, Centro
+                    94160, Hidalgo 35, Chocaman, Chocamán, Ver.
                   </p>
                 </div>
               </div>
@@ -612,13 +621,13 @@ const FloralTop = () => (
                     fontFamily: "'Cormorant', serif",
                     color: '#8b6f47'
                   }}>
-                    Jardín Los Olivos
+                    Salón "La Cantera"
                   </p>
                   <p className="text-sm" style={{
                     fontFamily: "'Crimson Text', serif",
                     color: '#9b8b7a'
                   }}>
-                    Camino Real 456, Valle Verde
+                    C. 9 Ricardo Flores Magón 108, La Garita, 94160 Chocamán, Ver.
                   </p>
                 </div>
               </div>
@@ -663,7 +672,7 @@ const FloralTop = () => (
                 fontFamily: "'Alex Brush', cursive",
                 color: '#8b6f47'
               }}>
-                Con amor, Emmanuel & Naydelin
+                Con amor, Naydelin & Emmanuel
               </p>
             </div>
 
@@ -682,7 +691,7 @@ const FloralTop = () => (
                 color: '#6b5d52'
               }}>
                 <div className="flex justify-between items-center border-b border-stone-200 pb-2 px-2 sm:px-0">
-                  <span>17:00 h</span>
+                  <span>18:00 h</span>
                   <span>Ceremonia</span>
                 </div>
                 <div className="flex justify-between items-center border-b border-stone-200 pb-2 px-2 sm:px-0">
@@ -785,24 +794,12 @@ const FloralTop = () => (
                   color: '#8b6f47',
                   fontFamily: "'Crimson Text', serif"
                 }}>
-                  Liverpool
-                </button>
-                <button className="px-4 sm:px-5 py-2 border-2 rounded-full transition-all hover:shadow-md text-sm sm:text-base" style={{
-                  borderColor: '#c4b5a0',
-                  color: '#8b6f47',
-                  fontFamily: "'Crimson Text', serif"
-                }}>
-                  Palacio de Hierro
-                </button>
-                <button className="px-4 sm:px-5 py-2 border-2 rounded-full transition-all hover:shadow-md text-sm sm:text-base" style={{
-                  borderColor: '#c4b5a0',
-                  color: '#8b6f47',
-                  fontFamily: "'Crimson Text', serif"
-                }}>
                   Sobres de Regalo
                 </button>
               </div>
             </div>
+
+
             {/* Photo sharing section - Diseño mejorado */}
             <div className="mb-12 sm:mb-16 px-2 sm:px-0">
               <div className="relative overflow-hidden rounded-2xl border-2 p-8 sm:p-12" style={{
@@ -856,10 +853,10 @@ const FloralTop = () => (
                   <div className="flex flex-col md:flex-row items-center justify-center gap-8 mb-6">
                     {/* QR Code */}
                     <a
-                      href="https://pub-81bfb9260e2a480aa554ab719e15c0d9.r2.dev/qr.jpg"
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      className="group"
+                        href="https://pub-81bfb9260e2a480aa554ab719e15c0d9.r2.dev/qr.jpg"
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="group"
                     >
                       <div className="relative w-48 h-48 sm:w-56 sm:h-56 transition-all duration-300 group-hover:scale-105">
                         {/* QR Background with shadow */}
@@ -871,10 +868,10 @@ const FloralTop = () => (
 
                         {/* QR Code */}
                         <a
-                          href="https://pub-81bfb9260e2a480aa554ab719e15c0d9.r2.dev/qr.jpg"
-                          target="_blank"
-                          rel="noopener noreferrer"
-                          className="group"
+                            href=""
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            className="group"
                         >
                           <div className="relative w-48 h-48 sm:w-56 sm:h-56 transition-all duration-300 group-hover:scale-105">
                             {/* QR Background with shadow */}
@@ -892,9 +889,9 @@ const FloralTop = () => (
                             }}>
                               {/* IMAGEN DEL QR - Reemplaza la ruta con tu imagen */}
                               <img
-                                src="https://pub-81bfb9260e2a480aa554ab719e15c0d9.r2.dev/qr.jpg"
-                                alt="QR Code para compartir fotos"
-                                className="w-full h-full object-contain rounded-xl"
+                                  src="https://pub-81bfb9260e2a480aa554ab719e15c0d9.r2.dev/qr.jpg"
+                                  alt="QR Code para compartir fotos"
+                                  className="w-full h-full object-contain rounded-xl"
                               />
 
                               {/* Corner decorations */}
@@ -943,16 +940,16 @@ const FloralTop = () => (
                           </p>
                         </div>
                         <button
-                          onClick={() => {
-                            navigator.clipboard.writeText('ES69a9d35b');
-                            alert('✅ ¡Código copiado al portapapeles!');
-                          }}
-                          className="w-full px-4 py-2.5 rounded-lg transition-all transform hover:scale-105 hover:shadow-lg flex items-center justify-center gap-2 text-sm font-medium"
-                          style={{
-                            background: 'linear-gradient(135deg, #8b6f47 0%, #6d5838 100%)',
-                            color: 'white',
-                            fontFamily: "'Crimson Text', serif"
-                          }}
+                            onClick={() => {
+                              navigator.clipboard.writeText('ES69a9d35b');
+                              alert('✅ ¡Código copiado al portapapeles!');
+                            }}
+                            className="w-full px-4 py-2.5 rounded-lg transition-all transform hover:scale-105 hover:shadow-lg flex items-center justify-center gap-2 text-sm font-medium"
+                            style={{
+                              background: 'linear-gradient(135deg, #8b6f47 0%, #6d5838 100%)',
+                              color: 'white',
+                              fontFamily: "'Crimson Text', serif"
+                            }}
                         >
                           <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
                             <rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect>
@@ -988,12 +985,124 @@ const FloralTop = () => (
                   }}>
                     ¡Nos hará muchísima ilusión verlas!
                   </p>
-                  <p className="text-xs sm:text-sm italic" style={{
+                  <p className="text-xs sm:text-sm italic mb-6" style={{
                     fontFamily: "'Crimson Text', serif",
                     color: '#9b8b7a'
                   }}>
                     Tus fotos harán este recuerdo aún más especial 💕
                   </p>
+
+                  {/* Instructions Section */}
+                  <div className="mt-8 max-w-2xl mx-auto">
+                    <h3 className="text-xl sm:text-2xl font-semibold mb-6 text-center" style={{
+                      fontFamily: "'Cormorant', serif",
+                      color: '#8b6f47'
+                    }}>
+                      ¿Cómo subir tus fotos?
+                    </h3>
+
+                    {/* Two column layout for methods */}
+                    <div className="grid md:grid-cols-2 gap-6 mb-6">
+                      {/* Method 1: QR Code */}
+                      <div className="p-6 rounded-xl border-2" style={{
+                        background: 'linear-gradient(135deg, rgba(255,255,255,0.95) 0%, rgba(245,241,237,0.7) 100%)',
+                        borderColor: '#e8d5c4'
+                      }}>
+                        <div className="flex items-center justify-center w-12 h-12 rounded-full mx-auto mb-4" style={{
+                          background: 'linear-gradient(135deg, #8b6f47 0%, #6d5838 100%)'
+                        }}>
+                          <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="white" strokeWidth="2">
+                            <rect x="3" y="3" width="7" height="7"></rect>
+                            <rect x="14" y="3" width="7" height="7"></rect>
+                            <rect x="3" y="14" width="7" height="7"></rect>
+                            <rect x="14" y="14" width="7" height="7"></rect>
+                          </svg>
+                        </div>
+                        <h4 className="text-base font-bold mb-3 text-center" style={{
+                          fontFamily: "'Cormorant', serif",
+                          color: '#8b6f47'
+                        }}>
+                          Opción 1: Usando el QR
+                        </h4>
+                        <ol className="space-y-2 text-left text-sm" style={{
+                          fontFamily: "'Crimson Text', serif",
+                          color: '#6b5d52'
+                        }}>
+                          <li className="flex gap-2">
+                            <span className="font-bold min-w-[20px]" style={{ color: '#8b6f47' }}>1.</span>
+                            <span>Descarga la app <strong>WedShoots</strong> (gratis en App Store o Google Play)</span>
+                          </li>
+                          <li className="flex gap-2">
+                            <span className="font-bold min-w-[20px]" style={{ color: '#8b6f47' }}>2.</span>
+                            <span>Abre la cámara de tu celular y apunta al QR de arriba</span>
+                          </li>
+                          <li className="flex gap-2">
+                            <span className="font-bold min-w-[20px]" style={{ color: '#8b6f47' }}>3.</span>
+                            <span>Toca la notificación que aparece</span>
+                          </li>
+                          <li className="flex gap-2">
+                            <span className="font-bold min-w-[20px]" style={{ color: '#8b6f47' }}>4.</span>
+                            <span>¡Listo! Ahora puedes subir tus fotos desde la app</span>
+                          </li>
+                        </ol>
+                      </div>
+
+                      {/* Method 2: Manual Code */}
+                      <div className="p-6 rounded-xl border-2" style={{
+                        background: 'linear-gradient(135deg, rgba(255,255,255,0.95) 0%, rgba(245,241,237,0.7) 100%)',
+                        borderColor: '#e8d5c4'
+                      }}>
+                        <div className="flex items-center justify-center w-12 h-12 rounded-full mx-auto mb-4" style={{
+                          background: 'linear-gradient(135deg, #8b6f47 0%, #6d5838 100%)'
+                        }}>
+                          <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="white" strokeWidth="2">
+                            <path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path>
+                            <path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path>
+                          </svg>
+                        </div>
+                        <h4 className="text-base font-bold mb-3 text-center" style={{
+                          fontFamily: "'Cormorant', serif",
+                          color: '#8b6f47'
+                        }}>
+                          Opción 2: Con el código
+                        </h4>
+                        <ol className="space-y-2 text-left text-sm" style={{
+                          fontFamily: "'Crimson Text', serif",
+                          color: '#6b5d52'
+                        }}>
+                          <li className="flex gap-2">
+                            <span className="font-bold min-w-[20px]" style={{ color: '#8b6f47' }}>1.</span>
+                            <span>Descarga la app <strong>WedShoots</strong> (gratis en App Store o Google Play)</span>
+                          </li>
+                          <li className="flex gap-2">
+                            <span className="font-bold min-w-[20px]" style={{ color: '#8b6f47' }}>2.</span>
+                            <span>Abre la app y toca <strong>"Join an Album"</strong></span>
+                          </li>
+                          <li className="flex gap-2">
+                            <span className="font-bold min-w-[20px]" style={{ color: '#8b6f47' }}>3.</span>
+                            <span>Ingresa el código: <strong>ES69a9d35b</strong></span>
+                          </li>
+                          <li className="flex gap-2">
+                            <span className="font-bold min-w-[20px]" style={{ color: '#8b6f47' }}>4.</span>
+                            <span>¡Listo! Ahora puedes subir tus fotos desde la app</span>
+                          </li>
+                        </ol>
+                      </div>
+                    </div>
+
+                    {/* Additional tip */}
+                    <div className="p-4 rounded-lg border-2 text-center" style={{
+                      background: 'linear-gradient(135deg, rgba(218,165,32,0.05) 0%, rgba(184,134,11,0.03) 100%)',
+                      borderColor: '#e8d5c4'
+                    }}>
+                      <p className="text-xs sm:text-sm leading-relaxed" style={{
+                        fontFamily: "'Crimson Text', serif",
+                        color: '#6b5d52'
+                      }}>
+                        💡 <span className="font-semibold">Tip:</span> Una vez dentro del álbum, solo toca el botón <strong>"+"</strong> o <strong>"Agregar fotos"</strong> para compartir tus mejores momentos de la boda.
+                      </p>
+                    </div>
+                  </div>
                 </div>
               </div>
             </div>
