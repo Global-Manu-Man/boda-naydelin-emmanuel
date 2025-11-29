@@ -1147,7 +1147,7 @@ const FloralTop = () => (
                 fontFamily: "'Crimson Text', serif",
                 color: '#9b8b7a'
               }}>
-                <span className="font-semibold" style={{ color: '#8b6f47' }}>#EmmanuelYNaydelin2025</span>
+                <span className="font-semibold" style={{ color: '#8b6f47' }}>#NaydelinYEmmanuel2025</span>
               </p>
             </div>
 
@@ -1160,7 +1160,7 @@ const FloralTop = () => (
                 fontFamily: "'Alex Brush', cursive",
                 color: '#8b6f47'
               }}>
-                Emmanuel & Naydelin
+                Naydelin & Emmanuel
               </p>
               <p className="text-xs sm:text-sm" style={{
                 fontFamily: "'Crimson Text', serif",
