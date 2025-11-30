@@ -56,13 +56,13 @@ const LocationMaps = () => {
               fontFamily: "'Crimson Text', serif",
               color: '#9b8b7a'
             }}>
-              Av. Principal 123, Centro
+             94160, Hidalgo 35, Chocaman, Chocamán, Ver.
             </p>
             <p className="text-sm font-medium" style={{
               fontFamily: "'Crimson Text', serif",
               color: '#8b6f47'
             }}>
-              📅 2:00 PM
+              📅 1:00 PM
             </p>
           </div>
 

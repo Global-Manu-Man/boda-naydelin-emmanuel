@@ -7,6 +7,12 @@ function App() {
   const [isOpened, setIsOpened] = useState(false);
   const [showRSVPModal, setShowRSVPModal] = useState(false);
   const [timeLeft, setTimeLeft] = useState({ days: 0, hours: 0, minutes: 0, seconds: 0 });
+ 
+ 
+  // Estados para la API
+ const [isSubmitting, setIsSubmitting] = useState(false);
+ const [submitStatus, setSubmitStatus] = useState({ type: '', message: '' });
+
 
   // RSVP Form state
   const [rsvpForm, setRsvpForm] = useState({
@@ -67,12 +73,87 @@ function App() {
     setRsvpForm({ ...rsvpForm, adults: newAdults });
   };
 
-  const handleSubmitRSVP = (e) => {
+  // Función para enviar a la API
+  const handleSubmitRSVP = async (e) => {
     e.preventDefault();
-    // Aquí puedes enviar los datos a un backend o servicio
-    console.log('RSVP Data:', rsvpForm);
-    alert('¡Gracias por confirmar tu asistencia!');
-    setShowRSVPModal(false);
+
+    setSubmitStatus({ type: '', message: '' });
+    setIsSubmitting(true);
+
+    try {
+      if (rsvpForm.attending === 'si') {
+        const allAdultsHaveNames = rsvpForm.adults.every(adult => adult.name.trim() !== '');
+        if (!allAdultsHaveNames) {
+          setSubmitStatus({
+            type: 'error',
+            message: 'Por favor completa el nombre de todos los adultos'
+          });
+          setIsSubmitting(false);
+          return;
+        }
+      }
+
+      const apiPayload = {
+        attending: rsvpForm.attending === 'si',
+        numberOfAdults: parseInt(rsvpForm.adultsCount),
+        numberOfChildren: parseInt(rsvpForm.childrenCount),
+        adults: rsvpForm.adults.map((adult, index) => ({
+          fullName: adult.name.trim(),
+          allergies: adult.allergies?.trim() || 'Ninguna',
+          menu: 'CARNE',
+          adultOrder: index + 1
+        })),
+        contactEmail: 'invitado@boda.com',
+        contactPhone: '0000000000',
+        notes: ''
+      };
+
+      console.log('📤 Enviando a Railway:', apiPayload);
+
+      const response = await fetch('https://weddingrsvp-production.up.railway.app/api/v1/guests', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(apiPayload)
+      });
+
+      if (response.ok) {
+        const data = await response.json();
+        console.log('✅ Guardado exitosamente:', data);
+
+        setSubmitStatus({
+          type: 'success',
+          message: '¡Gracias por confirmar tu asistencia! Nos vemos el 28 de febrero 🎉'
+        });
+
+        setTimeout(() => {
+          setShowRSVPModal(false);
+          setRsvpForm({
+            attending: 'si',
+            adultsCount: '1',
+            adults: [{ name: '', allergies: '', menu: 'carne' }],
+            childrenCount: '0'
+          });
+          setSubmitStatus({ type: '', message: '' });
+        }, 3000);
+
+      } else {
+        const errorData = await response.json().catch(() => ({}));
+        console.error('❌ Error de API:', errorData);
+        
+        setSubmitStatus({
+          type: 'error',
+          message: errorData.message || 'Hubo un problema. Intenta nuevamente.'
+        });
+      }
+    } catch (error) {
+      console.error('❌ Error de conexión:', error);
+      setSubmitStatus({
+        type: 'error',
+        message: 'No se pudo conectar. Verifica tu conexión.'
+      });
+    } finally {
+      setIsSubmitting(false);
+    }
   };
 
 // Watercolor floral SVG component - fully responsive
@@ -221,127 +302,193 @@ const FloralTop = () => (
         }
       `}</style>
 
-      {/* RSVP Modal */}
+      {/* ============================================
+          MODAL DE RSVP CON INTEGRACIÓN A LA API
+          ============================================ */}
       {showRSVPModal && (
-        <div
-          className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black bg-opacity-50"
-          onClick={() => setShowRSVPModal(false)}
-        >
-          <div
-            className="relative w-full max-w-2xl max-h-[90vh] overflow-y-auto bg-white rounded-lg shadow-2xl"
-            onClick={(e) => e.stopPropagation()}
-            style={{
-              backgroundImage: `url("data:image/svg+xml,%3Csvg width='200' height='200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.8' numOctaves='4' /%3E%3C/filter%3E%3Crect width='200' height='200' filter='url(%23noise)' opacity='0.03'/%3E%3C/svg%3E")`,
-              backgroundSize: '150px 150px'
-            }}
-          >
-            {/* Close button */}
-            <button
-              onClick={() => setShowRSVPModal(false)}
-              className="absolute top-4 right-4 w-8 h-8 flex items-center justify-center rounded-full hover:bg-stone-100 transition-colors"
-              style={{ color: '#8b6f47' }}
-            >
-              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
-                <line x1="18" y1="6" x2="6" y2="18"></line>
-                <line x1="6" y1="6" x2="18" y2="18"></line>
-              </svg>
-            </button>
-
-            {/* Modal content */}
-            <div className="p-6 sm:p-8">
-              <div className="text-center mb-6">
-                <h2 className="text-3xl sm:text-4xl mb-2" style={{
+        <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center p-4 z-50">
+          <div className="bg-white rounded-2xl max-w-lg w-full max-h-[90vh] overflow-y-auto" style={{
+            boxShadow: '0 25px 50px -12px rgba(0,0,0,0.25)'
+          }}>
+            {/* Header del modal con borde inferior */}
+            <div className="sticky top-0 bg-white rounded-t-2xl border-b-2 px-6 py-5" style={{
+              borderColor: '#e8d5c4'
+            }}>
+              <div className="flex items-center justify-between">
+                <h2 className="text-2xl sm:text-3xl font-bold" style={{
                   fontFamily: "'Cormorant', serif",
-                  color: '#8b6f47',
-                  fontWeight: '500'
+                  color: '#8b6f47'
                 }}>
                   Confirmar Asistencia
                 </h2>
-                <div className="w-16 h-px bg-amber-300 mx-auto mt-4"></div>
+                <button
+                  onClick={() => {
+                    setShowRSVPModal(false);
+                    setSubmitStatus({ type: '', message: '' });
+                  }}
+                  className="flex-shrink-0 w-10 h-10 flex items-center justify-center rounded-full transition-all duration-200 hover:bg-red-50"
+                  style={{
+                    color: '#8b6f47',
+                    border: '2px solid #e8d5c4'
+                  }}
+                  aria-label="Cerrar modal"
+                >
+                  <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24" strokeWidth="2.5">
+                    <path strokeLinecap="round" strokeLinejoin="round" d="M6 18L18 6M6 6l12 12" />
+                  </svg>
+                </button>
               </div>
+            </div>
 
+            {/* Contenido del modal */}
+            <div className="p-6 sm:p-8">
+
+              {/* Mensaje de estado (éxito o error) */}
+              {submitStatus.message && (
+                <div className={`mb-6 p-4 rounded-lg ${
+                  submitStatus.type === 'success' 
+                    ? 'bg-green-50 border-2 border-green-200' 
+                    : 'bg-red-50 border-2 border-red-200'
+                }`}>
+                  <p className={`text-sm sm:text-base font-semibold ${
+                    submitStatus.type === 'success' ? 'text-green-800' : 'text-red-800'
+                  }`} style={{
+                    fontFamily: "'Crimson Text', serif"
+                  }}>
+                    {submitStatus.message}
+                  </p>
+                </div>
+              )}
+
+              {/* Formulario */}
               <form onSubmit={handleSubmitRSVP} className="space-y-6">
                 {/* ¿Asistirás? */}
                 <div>
-                  <label className="block mb-3 font-semibold" style={{
-                    fontFamily: "'Crimson Text', serif",
-                    color: '#6b5d52',
-                    fontSize: '18px'
+                  <label className="block text-lg font-bold mb-4" style={{
+                    fontFamily: "'Cormorant', serif",
+                    color: '#8b6f47'
                   }}>
                     ¿Asistirás?
                   </label>
-                  <div className="flex gap-6">
-                    <label className="flex items-center cursor-pointer">
+                  <div className="grid grid-cols-2 gap-3">
+                    <label className={`relative flex items-center justify-center p-4 rounded-xl border-2 cursor-pointer transition-all duration-200 ${
+                      rsvpForm.attending === 'si' 
+                        ? 'border-green-500 bg-green-50' 
+                        : 'border-gray-200 bg-white hover:border-green-300'
+                    }`}>
                       <input
                         type="radio"
                         name="attending"
                         value="si"
                         checked={rsvpForm.attending === 'si'}
                         onChange={(e) => setRsvpForm({ ...rsvpForm, attending: e.target.value })}
-                        className="w-4 h-4 mr-2"
-                        style={{ accentColor: '#8b6f47' }}
+                        className="absolute opacity-0"
                       />
-                      <span style={{ fontFamily: "'Crimson Text', serif", color: '#6b5d52' }}>Sí</span>
+                      <div className="flex items-center gap-2">
+                        <div className={`w-5 h-5 rounded-full border-2 flex items-center justify-center ${
+                          rsvpForm.attending === 'si' 
+                            ? 'border-green-500 bg-green-500' 
+                            : 'border-gray-300'
+                        }`}>
+                          {rsvpForm.attending === 'si' && (
+                            <div className="w-2 h-2 bg-white rounded-full"></div>
+                          )}
+                        </div>
+                        <span className={`text-base font-semibold ${
+                          rsvpForm.attending === 'si' ? 'text-green-700' : 'text-gray-600'
+                        }`} style={{ fontFamily: "'Crimson Text', serif" }}>
+                          Sí
+                        </span>
+                      </div>
                     </label>
-                    <label className="flex items-center cursor-pointer">
+
+                    <label className={`relative flex items-center justify-center p-4 rounded-xl border-2 cursor-pointer transition-all duration-200 ${
+                      rsvpForm.attending === 'no' 
+                        ? 'border-red-500 bg-red-50' 
+                        : 'border-gray-200 bg-white hover:border-red-300'
+                    }`}>
                       <input
                         type="radio"
                         name="attending"
                         value="no"
                         checked={rsvpForm.attending === 'no'}
                         onChange={(e) => setRsvpForm({ ...rsvpForm, attending: e.target.value })}
-                        className="w-4 h-4 mr-2"
-                        style={{ accentColor: '#8b6f47' }}
+                        className="absolute opacity-0"
                       />
-                      <span style={{ fontFamily: "'Crimson Text', serif", color: '#6b5d52' }}>No</span>
+                      <div className="flex items-center gap-2">
+                        <div className={`w-5 h-5 rounded-full border-2 flex items-center justify-center ${
+                          rsvpForm.attending === 'no' 
+                            ? 'border-red-500 bg-red-500' 
+                            : 'border-gray-300'
+                        }`}>
+                          {rsvpForm.attending === 'no' && (
+                            <div className="w-2 h-2 bg-white rounded-full"></div>
+                          )}
+                        </div>
+                        <span className={`text-base font-semibold ${
+                          rsvpForm.attending === 'no' ? 'text-red-700' : 'text-gray-600'
+                        }`} style={{ fontFamily: "'Crimson Text', serif" }}>
+                          No
+                        </span>
+                      </div>
                     </label>
                   </div>
                 </div>
 
+                {/* Campos condicionales si asiste */}
                 {rsvpForm.attending === 'si' && (
                   <>
                     {/* Número de adultos */}
                     <div>
-                      <label className="block mb-2 font-semibold" style={{
-                        fontFamily: "'Crimson Text', serif",
-                        color: '#6b5d52',
-                        fontSize: '18px'
+                      <label className="block text-base font-bold mb-3" style={{
+                        fontFamily: "'Cormorant', serif",
+                        color: '#8b6f47'
                       }}>
                         Número de adultos
                       </label>
                       <select
                         value={rsvpForm.adultsCount}
                         onChange={(e) => handleAdultsCountChange(e.target.value)}
-                        className="w-full px-4 py-2 border-2 rounded-lg focus:outline-none focus:border-amber-400"
-                        style={{
+                        className="w-full p-4 border-2 rounded-xl focus:outline-none focus:ring-2 focus:ring-offset-2 transition-all"
+                        style={{ 
                           fontFamily: "'Crimson Text', serif",
-                          color: '#6b5d52',
-                          borderColor: '#e8d5c4'
+                          fontSize: '16px',
+                          borderColor: '#e8d5c4',
+                          backgroundColor: 'white',
+                          color: '#6b5d52'
                         }}
+                        required
                       >
-                        {[1, 2, 3, 4, 5, 6].map(num => (
-                          <option key={num} value={num}>{num}</option>
+                        {[1, 2, 3, 4, 5].map(num => (
+                          <option key={num} value={num}>{num} {num === 1 ? 'adulto' : 'adultos'}</option>
                         ))}
                       </select>
                     </div>
 
-                    {/* Adults details */}
+                    {/* Nombres de adultos */}
                     {rsvpForm.adults.map((adult, index) => (
-                      <div key={index} className="p-4 rounded-lg border-2" style={{
-                        background: 'rgba(245,241,237,0.3)',
+                      <div key={index} className="p-5 rounded-xl border-2 shadow-sm" style={{
+                        backgroundColor: 'white',
                         borderColor: '#e8d5c4'
                       }}>
-                        <h3 className="mb-4 font-semibold" style={{
-                          fontFamily: "'Crimson Text', serif",
-                          color: '#8b6f47',
-                          fontSize: '16px'
-                        }}>
-                          Adulto {index + 1}
-                        </h3>
-
-                        {/* Nombre y apellido */}
-                        <div className="mb-4">
-                          <label className="block mb-2 text-sm" style={{
+                        <div className="flex items-center gap-2 mb-4">
+                          <div className="w-8 h-8 rounded-full flex items-center justify-center text-white font-bold" style={{
+                            background: 'linear-gradient(135deg, #8b6f47 0%, #6d5838 100%)',
+                            fontFamily: "'Cormorant', serif",
+                            fontSize: '14px'
+                          }}>
+                            {index + 1}
+                          </div>
+                          <h4 className="text-lg font-bold" style={{
+                            fontFamily: "'Cormorant', serif",
+                            color: '#8b6f47'
+                          }}>
+                            Adulto {index + 1}
+                          </h4>
+                        </div>
+                        
+                        <div>
+                          <label className="block text-sm font-semibold mb-2" style={{
                             fontFamily: "'Crimson Text', serif",
                             color: '#6b5d52'
                           }}>
@@ -351,135 +498,87 @@ const FloralTop = () => (
                             type="text"
                             value={adult.name}
                             onChange={(e) => handleAdultChange(index, 'name', e.target.value)}
+                            placeholder="Nombre completo"
+                            className="w-full p-4 border-2 rounded-xl focus:outline-none focus:ring-2 focus:ring-offset-2 transition-all"
+                            style={{ 
+                              fontFamily: "'Crimson Text', serif",
+                              fontSize: '16px',
+                              borderColor: '#e8d5c4',
+                              backgroundColor: '#f9fafb',
+                              color: '#6b5d52'
+                            }}
                             required
-                            className="w-full px-4 py-2 border-2 rounded-lg focus:outline-none focus:border-amber-400"
-                            style={{
-                              fontFamily: "'Crimson Text', serif",
-                              color: '#6b5d52',
-                              borderColor: '#e8d5c4'
-                            }}
                           />
-                        </div>
-
-                        {/* Alergias / Intolerancias */}
-                        <div className="mb-4">
-                          <label className="block mb-2 text-sm" style={{
-                            fontFamily: "'Crimson Text', serif",
-                            color: '#6b5d52'
-                          }}>
-                            Alergias / Intolerancias
-                          </label>
-                          <input
-                            type="text"
-                            value={adult.allergies}
-                            onChange={(e) => handleAdultChange(index, 'allergies', e.target.value)}
-                            placeholder="(Rellenar solo si procede)"
-                            className="w-full px-4 py-2 border-2 rounded-lg focus:outline-none focus:border-amber-400"
-                            style={{
-                              fontFamily: "'Crimson Text', serif",
-                              color: '#6b5d52',
-                              borderColor: '#e8d5c4'
-                            }}
-                          />
-                        </div>
-
-                        {/* Menú */}
-                        <div>
-                          <label className="block mb-3 text-sm font-semibold" style={{
-                            fontFamily: "'Crimson Text', serif",
-                            color: '#6b5d52'
-                          }}>
-                            Menú
-                          </label>
-                          <div className="space-y-2">
-                            <label className="flex items-start cursor-pointer">
-                              <input
-                                type="radio"
-                                name={`menu-${index}`}
-                                value="carne"
-                                checked={adult.menu === 'carne'}
-                                onChange={(e) => handleAdultChange(index, 'menu', e.target.value)}
-                                className="w-4 h-4 mr-3 mt-1"
-                                style={{ accentColor: '#8b6f47' }}
-                              />
-                              <span className="text-sm" style={{ fontFamily: "'Crimson Text', serif", color: '#6b5d52' }}>
-                                Carne de ternera con paté de patata
-                              </span>
-                            </label>
-                            <label className="flex items-start cursor-pointer">
-                              <input
-                                type="radio"
-                                name={`menu-${index}`}
-                                value="salmon"
-                                checked={adult.menu === 'salmon'}
-                                onChange={(e) => handleAdultChange(index, 'menu', e.target.value)}
-                                className="w-4 h-4 mr-3 mt-1"
-                                style={{ accentColor: '#8b6f47' }}
-                              />
-                              <span className="text-sm" style={{ fontFamily: "'Crimson Text', serif", color: '#6b5d52' }}>
-                                Lomo de salmón con champiñones
-                              </span>
-                            </label>
-                            <label className="flex items-start cursor-pointer">
-                              <input
-                                type="radio"
-                                name={`menu-${index}`}
-                                value="vegano"
-                                checked={adult.menu === 'vegano'}
-                                onChange={(e) => handleAdultChange(index, 'menu', e.target.value)}
-                                className="w-4 h-4 mr-3 mt-1"
-                                style={{ accentColor: '#8b6f47' }}
-                              />
-                              <span className="text-sm" style={{ fontFamily: "'Crimson Text', serif", color: '#6b5d52' }}>
-                                Tartar de remolacha con crema de aguacate y nueces (Vegano)
-                              </span>
-                            </label>
-                          </div>
                         </div>
                       </div>
                     ))}
 
                     {/* Número de niños */}
                     <div>
-                      <label className="block mb-2 font-semibold" style={{
-                        fontFamily: "'Crimson Text', serif",
-                        color: '#6b5d52',
-                        fontSize: '18px'
+                      <label className="block text-base font-bold mb-3" style={{
+                        fontFamily: "'Cormorant', serif",
+                        color: '#8b6f47'
                       }}>
                         Número de niños
                       </label>
                       <select
                         value={rsvpForm.childrenCount}
                         onChange={(e) => setRsvpForm({ ...rsvpForm, childrenCount: e.target.value })}
-                        className="w-full px-4 py-2 border-2 rounded-lg focus:outline-none focus:border-amber-400"
-                        style={{
+                        className="w-full p-4 border-2 rounded-xl focus:outline-none focus:ring-2 focus:ring-offset-2 transition-all"
+                        style={{ 
                           fontFamily: "'Crimson Text', serif",
-                          color: '#6b5d52',
-                          borderColor: '#e8d5c4'
+                          fontSize: '16px',
+                          borderColor: '#e8d5c4',
+                          backgroundColor: 'white',
+                          color: '#6b5d52'
                         }}
                       >
                         {[0, 1, 2, 3, 4, 5].map(num => (
-                          <option key={num} value={num}>{num}</option>
+                          <option key={num} value={num}>
+                            {num === 0 ? 'Sin niños' : `${num} ${num === 1 ? 'niño' : 'niños'}`}
+                          </option>
                         ))}
                       </select>
                     </div>
                   </>
                 )}
 
-                {/* Submit button */}
-                <div className="flex justify-center pt-4">
+                {/* Botón de envío mejorado */}
+                <div className="pt-6">
                   <button
                     type="submit"
-                    className="px-8 py-3 rounded-full transition-all transform hover:scale-105 shadow-lg flex items-center space-x-2"
+                    disabled={isSubmitting}
+                    className={`w-full py-5 text-white rounded-2xl font-bold text-lg transition-all flex items-center justify-center gap-3 shadow-lg ${
+                      isSubmitting 
+                        ? 'opacity-60 cursor-not-allowed' 
+                        : 'hover:shadow-2xl transform hover:scale-[1.02] active:scale-[0.98]'
+                    }`}
                     style={{
-                      background: '#8b6f47',
-                      color: 'white',
-                      fontFamily: "'Crimson Text', serif",
-                      fontSize: '18px'
+                      background: isSubmitting 
+                        ? 'linear-gradient(135deg, #9b8b7a 0%, #8b7b6a 100%)'
+                        : 'linear-gradient(135deg, #8b6f47 0%, #6d5838 100%)',
+                      fontFamily: "'Cormorant', serif"
                     }}
                   >
-                    <span>✉️</span>
-                    <span>Clic aquí para enviar</span>
+                    {isSubmitting ? (
+                      <>
+                        <svg className="animate-spin h-6 w-6" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
+                          <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4"></circle>
+                          <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
+                        </svg>
+                        <span>Enviando tu confirmación...</span>
+                      </>
+                    ) : (
+                      <>
+                        <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="white" strokeWidth="2.5">
+                          <rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect>
+                          <line x1="16" y1="2" x2="16" y2="6"></line>
+                          <line x1="8" y1="2" x2="8" y2="6"></line>
+                          <line x1="3" y1="10" x2="21" y2="10"></line>
+                        </svg>
+                        <span>CONFIRMAR ASISTENCIA</span>
+                      </>
+                    )}
                   </button>
                 </div>
               </form>
@@ -566,8 +665,8 @@ const FloralTop = () => (
                   fontSize: window.innerWidth < 640 ? '16px' : '18px',
                   color: '#6b5d52'
                 }}>
-                  <p className="mb-2">Viernes, 28 de Febrero de 2025</p>
-                  <p className="mb-4 sm:mb-6">2:00 PM</p>
+                  <p className="mb-2">Sabado, 28 de Febrero de 2025</p>
+                  <p className="mb-4 sm:mb-6">1:00 PM</p>
                 </div>
 
                 <div className="pt-2">
@@ -586,6 +685,79 @@ const FloralTop = () => (
                 </div>
               </div>
             </div>
+            
+            
+              {/* Padrinos de Velación */}
+              <div className="mb-12 px-4 sm:px-0">
+                <div className="text-center mb-8">
+                  <div className="mb-4">
+                    <FloralTop />
+                  </div>
+                  <h2 className="text-3xl sm:text-4xl font-bold mb-3" style={{
+                    fontFamily: "'Cormorant', serif",
+                    color: '#8b6f47'
+                  }}>
+                    Padrinos de Velación
+                  </h2>
+                  <p className="text-base sm:text-lg mb-6" style={{
+                    fontFamily: "'Crimson Text', serif",
+                    color: '#6b5d52'
+                  }}>
+                    Con mucho cariño nos acompañan
+                  </p>
+                </div>
+
+                <div className="max-w-2xl mx-auto">
+                  <div className="p-8 rounded-2xl shadow-lg" style={{
+                    background: 'linear-gradient(135deg, rgba(232, 213, 196, 0.3) 0%, rgba(212, 181, 160, 0.2) 100%)',
+                    border: '2px solid #e8d5c4'
+                  }}>
+                    {/* Nombres de los padrinos */}
+                    <div className="text-center space-y-4">
+                      <div>
+                        <p className="text-2xl sm:text-3xl font-bold mb-1" style={{
+                          fontFamily: "'Alex Brush', cursive",
+                          color: '#8b6f47'
+                        }}>
+                          J. Ramiro Pimentel Flores
+                        </p>
+                      </div>
+                      
+                      <div className="flex items-center justify-center gap-3 py-2">
+                        <div className="h-px w-12 bg-gradient-to-r from-transparent to-amber-700"></div>
+                        <span className="text-xl" style={{
+                          fontFamily: "'Cormorant', serif",
+                          color: '#8b6f47'
+                        }}>
+                          &
+                        </span>
+                        <div className="h-px w-12 bg-gradient-to-l from-transparent to-amber-700"></div>
+                      </div>
+
+                      <div>
+                        <p className="text-2xl sm:text-3xl font-bold" style={{
+                          fontFamily: "'Alex Brush', cursive",
+                          color: '#8b6f47'
+                        }}>
+                          Rosario Baigen Juarez
+                        </p>
+                      </div>
+                    </div>
+
+                    {/* Mensaje adicional */}
+                    <div className="mt-6 pt-6 border-t-2" style={{ borderColor: '#e8d5c4' }}>
+                      <p className="text-center text-sm sm:text-base italic" style={{
+                        fontFamily: "'Crimson Text', serif",
+                        color: '#9b8b7a'
+                      }}>
+                        "Gracias por acompañarnos en este momento tan especial"
+                      </p>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+
 
             {/* Leaf divider */}
             <div className="flex justify-center my-8 sm:my-12">
@@ -749,18 +921,6 @@ const FloralTop = () => (
                   <span>✉️</span>
                   <span>Confirmar Asistencia</span>
                 </button>
-                <a
-                  href="https://wa.me/521234567890"
-                  className="inline-flex items-center justify-center space-x-2 px-6 py-3 rounded-full transition-all transform hover:scale-105 text-sm sm:text-base"
-                  style={{
-                    background: '#25D366',
-                    color: 'white',
-                    fontFamily: "'Crimson Text', serif"
-                  }}
-                >
-                  <Phone className="w-4 h-4" />
-                  <span>WhatsApp</span>
-                </a>
               </div>
             </div>
 
