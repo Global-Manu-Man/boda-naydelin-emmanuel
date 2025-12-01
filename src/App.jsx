@@ -6,6 +6,7 @@ import LocationMaps from "./components/LocationMaps";
 function App() {
   const [isOpened, setIsOpened] = useState(false);
   const [showRSVPModal, setShowRSVPModal] = useState(false);
+  const [showGiftModal, setShowGiftModal] = useState(false);
   const [timeLeft, setTimeLeft] = useState({ days: 0, hours: 0, minutes: 0, seconds: 0 });
  
  
@@ -856,21 +857,22 @@ const FloralTop = () => (
                 color: '#6b5d52'
               }}>
                 <div className="flex justify-between items-center border-b border-stone-200 pb-2 px-2 sm:px-0">
-                  <span>18:00 h</span>
+                  <span>13:00 h</span>
                   <span>Ceremonia</span>
                 </div>
                 <div className="flex justify-between items-center border-b border-stone-200 pb-2 px-2 sm:px-0">
-                  <span>19:00 h</span>
-                  <span>Cóctel</span>
+                  <span>15:00 h</span>
+                  <span>Recepción</span>
                 </div>
                 <div className="flex justify-between items-center border-b border-stone-200 pb-2 px-2 sm:px-0">
-                  <span>20:00 h</span>
-                  <span>Cena</span>
+                  <span>17:00 h</span>
+                  <span>Entrega de regalos</span>
                 </div>
                 <div className="flex justify-between items-center border-b border-stone-200 pb-2 px-2 sm:px-0">
-                  <span>21:30 h</span>
+                  <span>18:00 h</span>
                   <span>Vals y Fiesta</span>
                 </div>
+
               </div>
             </div>
 
@@ -920,37 +922,198 @@ const FloralTop = () => (
             <div className="App">
              <LocationMaps />
             </div>
-
-            {/* Gift registry */}
-            <div className="text-center mb-12 sm:mb-16 p-6 sm:p-8 border border-stone-200 rounded mx-2 sm:mx-0" style={{
-              background: 'linear-gradient(to bottom, rgba(255,255,255,0.3), rgba(245,241,237,0.2))'
-            }}>
-              <Gift className="w-8 sm:w-10 h-8 sm:h-10 mx-auto mb-4" style={{ color: '#8b6f47' }} />
-              <h3 className="text-xl sm:text-2xl mb-3 sm:mb-4" style={{
-                fontFamily: "'Cormorant', serif",
-                color: '#8b6f47',
-                fontWeight: '500'
-              }}>
-                Mesa de Regalos
-              </h3>
-              <p className="mb-4 sm:mb-6 text-sm sm:text-base" style={{
-                fontFamily: "'Crimson Text', serif",
-                color: '#6b5d52'
-              }}>
-                Tu presencia es nuestro mejor regalo,
-                <br />
-                pero si deseas obsequiarnos algo:
-              </p>
-              <div className="flex flex-col sm:flex-row flex-wrap justify-center gap-2 sm:gap-3">
-                <button className="px-4 sm:px-5 py-2 border-2 rounded-full transition-all hover:shadow-md text-sm sm:text-base" style={{
-                  borderColor: '#c4b5a0',
-                  color: '#8b6f47',
-                  fontFamily: "'Crimson Text', serif"
-                }}>
-                  Sobres de Regalo
-                </button>
+            {/* Sección de Sobres de Regalo - BOTÓN */}
+            <div className="text-center mb-12 sm:mb-16 px-4 sm:px-0">
+              <div className="mb-6">
+                <FloralTop />
               </div>
+              <button
+                  onClick={() => setShowGiftModal(true)}
+                  className="px-8 py-4 rounded-full font-bold text-lg transition-all transform hover:scale-105 hover:shadow-2xl"
+                  style={{
+                    background: 'linear-gradient(135deg, #8b6f47 0%, #6d5838 100%)',
+                    color: 'white',
+                    fontFamily: "'Cormorant', serif",
+                    boxShadow: '0 10px 30px rgba(139, 111, 71, 0.3)'
+                  }}
+              >
+                🎁 Sobres de Regalo 🎁
+              </button>
             </div>
+
+            {/* MODAL de Sobres de Regalo */}
+            {showGiftModal && (
+                <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center p-4 z-50">
+                  <div className="bg-white rounded-2xl max-w-2xl w-full max-h-[90vh] overflow-y-auto" style={{
+                    boxShadow: '0 25px 50px -12px rgba(0,0,0,0.25)'
+                  }}>
+                    {/* Header del modal */}
+                    <div className="sticky top-0 bg-white rounded-t-2xl border-b-2 px-6 py-5" style={{
+                      borderColor: '#e8d5c4'
+                    }}>
+                      <div className="flex items-center justify-between">
+                        <h2 className="text-2xl sm:text-3xl font-bold" style={{
+                          fontFamily: "'Cormorant', serif",
+                          color: '#8b6f47'
+                        }}>
+                          🎁 Sobres de Regalo
+                        </h2>
+                        <button
+                            onClick={() => setShowGiftModal(false)}
+                            className="flex-shrink-0 w-10 h-10 flex items-center justify-center rounded-full transition-all duration-200 hover:bg-red-50"
+                            style={{
+                              color: '#8b6f47',
+                              border: '2px solid #e8d5c4'
+                            }}
+                            aria-label="Cerrar modal"
+                        >
+                          <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24" strokeWidth="2.5">
+                            <path strokeLinecap="round" strokeLinejoin="round" d="M6 18L18 6M6 6l12 12" />
+                          </svg>
+                        </button>
+                      </div>
+                    </div>
+
+                    {/* Contenido del modal */}
+                    <div className="p-6 sm:p-8 space-y-6">
+                      {/* Banner divertido */}
+                      <div className="p-6 rounded-2xl shadow-md" style={{
+                        background: 'linear-gradient(135deg, rgba(255, 235, 205, 0.5) 0%, rgba(250, 224, 193, 0.4) 100%)',
+                        border: '2px solid #e8d5c4'
+                      }}>
+                        <div className="text-center space-y-4">
+                          <div className="text-5xl mb-3">🎁</div>
+                          <p className="text-lg sm:text-xl font-bold mb-3" style={{
+                            fontFamily: "'Cormorant', serif",
+                            color: '#8b6f47'
+                          }}>
+                            ¡Tu presencia es el mejor regalo!
+                          </p>
+                          <p className="text-base sm:text-lg leading-relaxed" style={{
+                            fontFamily: "'Crimson Text', serif",
+                            color: '#6b5d52'
+                          }}>
+                            <strong>Seamos honestos:</strong> lo que más queremos es verte ahí con tu mejor baile 💃🕺.
+                            Pero si insistes en darnos algo (y no te vamos a detener 😏), preferimos cosas que nos sirvan
+                            para nuestra vida juntos. Ya sabes, esas cosas aburridas de adultos como sartenes,
+                            toallas o... ¡dinero! (sí, dijimos lo que todos pensamos 💰).
+                            Los regalos son <strong>100% opcionales</strong>, en serio. Pero si te late la idea,
+                            aquí abajo está nuestra cuenta bancaria. ¡No hay presión! 😊
+                          </p>
+                        </div>
+                      </div>
+
+                      {/* Tarjeta de cuenta bancaria */}
+                      <div className="p-6 sm:p-8 rounded-2xl shadow-lg" style={{
+                        background: 'linear-gradient(135deg, #002D72 0%, #004B93 100%)',
+                      }}>
+                        <div className="space-y-5">
+                          {/* Logo/Título BBVA */}
+                          <div className="text-center pb-4 border-b border-white/20">
+                            <p className="text-2xl sm:text-3xl font-bold text-white mb-1" style={{
+                              fontFamily: "'Cormorant', serif",
+                              letterSpacing: '2px'
+                            }}>
+                              BBVA
+                            </p>
+                            <p className="text-sm text-white/80" style={{
+                              fontFamily: "'Crimson Text', serif"
+                            }}>
+                              Transferencia Bancaria
+                            </p>
+                          </div>
+
+                          {/* Datos de la cuenta */}
+                          <div className="space-y-4">
+                            {/* CLABE */}
+                            <div className="bg-white/10 backdrop-blur-sm rounded-xl p-4 border border-white/20">
+                              <p className="text-xs sm:text-sm text-white/70 mb-2" style={{
+                                fontFamily: "'Crimson Text', serif"
+                              }}>
+                                CLABE Interbancaria
+                              </p>
+                              <p className="text-xl sm:text-2xl font-bold text-white tracking-wider" style={{
+                                fontFamily: "'Courier New', monospace"
+                              }}>
+                                012 180 01558675430 4
+                              </p>
+                            </div>
+
+                            {/* Información adicional */}
+                            <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
+                              <div className="bg-white/10 backdrop-blur-sm rounded-lg p-3 border border-white/20">
+                                <p className="text-xs text-white/70 mb-1" style={{
+                                  fontFamily: "'Crimson Text', serif"
+                                }}>
+                                  Banco
+                                </p>
+                                <p className="text-sm sm:text-base font-semibold text-white" style={{
+                                  fontFamily: "'Crimson Text', serif"
+                                }}>
+                                  BBVA México
+                                </p>
+                              </div>
+                              <div className="bg-white/10 backdrop-blur-sm rounded-lg p-3 border border-white/20">
+                                <p className="text-xs text-white/70 mb-1" style={{
+                                  fontFamily: "'Crimson Text', serif"
+                                }}>
+                                  Beneficiarios
+                                </p>
+                                <p className="text-sm sm:text-base font-semibold text-white" style={{
+                                  fontFamily: "'Crimson Text', serif"
+                                }}>
+                                  Naydelin & Emmanuel
+                                </p>
+                              </div>
+                            </div>
+
+                            {/* Botón para copiar */}
+                            <button
+                                onClick={() => {
+                                  navigator.clipboard.writeText('012180015586754304');
+                                  alert('¡CLABE copiada al portapapeles! 💰');
+                                }}
+                                className="w-full py-3 px-4 rounded-xl font-semibold text-white transition-all hover:scale-105 active:scale-95"
+                                style={{
+                                  background: 'rgba(255, 255, 255, 0.15)',
+                                  border: '2px solid rgba(255, 255, 255, 0.3)',
+                                  fontFamily: "'Crimson Text', serif",
+                                  backdropFilter: 'blur(10px)'
+                                }}
+                            >
+                              📋 Copiar CLABE
+                            </button>
+                          </div>
+
+                          {/* Nota adicional */}
+                          <div className="pt-4 border-t border-white/20">
+                            <p className="text-xs sm:text-sm text-center text-white/70 italic" style={{
+                              fontFamily: "'Crimson Text', serif"
+                            }}>
+                              También puedes entregar tu sobre el día de la boda 💝
+                            </p>
+                          </div>
+                        </div>
+                      </div>
+
+                      {/* Mensaje final */}
+                      <div className="text-center p-4">
+                        <p className="text-sm sm:text-base italic" style={{
+                          fontFamily: "'Alex Brush', cursive",
+                          color: '#9b8b7a',
+                          fontSize: '1.3rem'
+                        }}>
+                          "Lo que realmente nos importa es compartir este momento contigo"
+                        </p>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+            )}
+
+
+
+
 
 
             {/* Photo sharing section - Diseño mejorado */}

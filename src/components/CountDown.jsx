@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 
 const CountdownTimer = () => {
   const [eventName, setEventName] = useState("Nuestra Boda");
-  const [eventDate, setEventDate] = useState("2026-02-28");
+  const [eventDate, setEventDate] = useState("2026-02-28T12:00:00");
   const [countdownStarted, setCountdownStarted] = useState(true);
   const [timeRemaining, setTimeRemaining] = useState(0);
 
@@ -16,7 +16,7 @@ const CountdownTimer = () => {
         if (remainingTime <= 0) {
           remainingTime = 0;
           clearInterval(countdownInterval);
-          alert("Countdown complete!");
+          alert("¡El gran día ha llegado!");
         }
 
         setTimeRemaining(remainingTime);
@@ -54,7 +54,7 @@ const CountdownTimer = () => {
 
   const formatDate = (date) => {
     const options = { month: "long", day: "numeric", year: "numeric" };
-    return new Date(date).toLocaleDateString("en-US", options);
+    return new Date(date).toLocaleDateString("es-MX", options);
   };
 
   const formatTime = (time) => {
@@ -66,16 +66,16 @@ const CountdownTimer = () => {
     return (
       <div className="countdown-display">
         <div className="countdown-value">
-          {days.toString().padStart(2, "0")} <span>days</span>
+          {days.toString().padStart(2, "0")} <span>Dias</span>
         </div>
         <div className="countdown-value">
-          {hours.toString().padStart(2, "0")} <span> hours</span>
+          {hours.toString().padStart(2, "0")} <span>Horas</span>
         </div>
         <div className="countdown-value">
-          {minutes.toString().padStart(2, "0")} <span>minutes</span>
+          {minutes.toString().padStart(2, "0")} <span>Minutos</span>
         </div>
         <div className="countdown-value">
-          {seconds.toString().padStart(2, "0")} <span>seconds</span>
+          {seconds.toString().padStart(2, "0")} <span>Segundos</span>
         </div>
       </div>
     );
