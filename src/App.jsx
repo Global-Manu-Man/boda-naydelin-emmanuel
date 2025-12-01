@@ -1035,7 +1035,7 @@ const FloralTop = () => (
                               <p className="text-xl sm:text-2xl font-bold text-white tracking-wider" style={{
                                 fontFamily: "'Courier New', monospace"
                               }}>
-                                012 180 01558675430 4
+                                012 180 01587466419 3
                               </p>
                             </div>
 
@@ -1057,12 +1057,12 @@ const FloralTop = () => (
                                 <p className="text-xs text-white/70 mb-1" style={{
                                   fontFamily: "'Crimson Text', serif"
                                 }}>
-                                  Beneficiarios
+                                  Beneficiario
                                 </p>
                                 <p className="text-sm sm:text-base font-semibold text-white" style={{
                                   fontFamily: "'Crimson Text', serif"
                                 }}>
-                                  Naydelin & Emmanuel
+                                  Naydelin Baijen Jarillo
                                 </p>
                               </div>
                             </div>
