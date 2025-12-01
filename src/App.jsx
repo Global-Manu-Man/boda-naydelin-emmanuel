@@ -685,77 +685,70 @@ const FloralTop = () => (
                 </div>
               </div>
             </div>
-            
-            
-              {/* Padrinos de Velación */}
-              <div className="mb-12 px-4 sm:px-0">
-                <div className="text-center mb-8">
-                  <div className="mb-4">
-                    <FloralTop />
-                  </div>
-                  <h2 className="text-3xl sm:text-4xl font-bold mb-3" style={{
-                    fontFamily: "'Cormorant', serif",
+
+            {/* Padrinos de Velación */}
+            <div className="mb-12 px-4 sm:px-0">
+              <div className="text-center mb-8">
+                <div className="mb-4">
+                  <FloralTop />
+                </div>
+                <h2 className="text-3xl sm:text-4xl font-bold mb-3" style={{
+                  fontFamily: "'Cormorant', serif",
+                  color: '#8b6f47'
+                }}>
+                  Padrinos de Velación
+                </h2>
+                <p className="text-base sm:text-lg mb-6" style={{
+                  fontFamily: "'Crimson Text', serif",
+                  color: '#6b5d52'
+                }}>
+                  Con mucho cariño nos acompañan
+                </p>
+              </div>
+
+              {/* Nombres de los padrinos - SIN cuadro */}
+              <div className="text-center space-y-6">
+                <div>
+                  <p className="text-4xl sm:text-5xl mb-2" style={{
+                    fontFamily: "'Alex Brush', cursive",
                     color: '#8b6f47'
                   }}>
-                    Padrinos de Velación
-                  </h2>
-                  <p className="text-base sm:text-lg mb-6" style={{
-                    fontFamily: "'Crimson Text', serif",
-                    color: '#6b5d52'
-                  }}>
-                    Con mucho cariño nos acompañan
+                    J. Ramiro Pimentel Flores
                   </p>
                 </div>
 
-                <div className="max-w-2xl mx-auto">
-                  <div className="p-8 rounded-2xl shadow-lg" style={{
-                    background: 'linear-gradient(135deg, rgba(232, 213, 196, 0.3) 0%, rgba(212, 181, 160, 0.2) 100%)',
-                    border: '2px solid #e8d5c4'
+                <div className="flex items-center justify-center gap-4 py-3">
+                  <div className="h-px w-16 bg-gradient-to-r from-transparent to-amber-700"></div>
+                  <span className="text-2xl" style={{
+                    fontFamily: "'Cormorant', serif",
+                    color: '#8b6f47'
                   }}>
-                    {/* Nombres de los padrinos */}
-                    <div className="text-center space-y-4">
-                      <div>
-                        <p className="text-2xl sm:text-3xl font-bold mb-1" style={{
-                          fontFamily: "'Alex Brush', cursive",
-                          color: '#8b6f47'
-                        }}>
-                          J. Ramiro Pimentel Flores
-                        </p>
-                      </div>
-                      
-                      <div className="flex items-center justify-center gap-3 py-2">
-                        <div className="h-px w-12 bg-gradient-to-r from-transparent to-amber-700"></div>
-                        <span className="text-xl" style={{
-                          fontFamily: "'Cormorant', serif",
-                          color: '#8b6f47'
-                        }}>
-                          &
-                        </span>
-                        <div className="h-px w-12 bg-gradient-to-l from-transparent to-amber-700"></div>
-                      </div>
+                      &
+                    </span>
+                  <div className="h-px w-16 bg-gradient-to-l from-transparent to-amber-700"></div>
+                </div>
 
-                      <div>
-                        <p className="text-2xl sm:text-3xl font-bold" style={{
-                          fontFamily: "'Alex Brush', cursive",
-                          color: '#8b6f47'
-                        }}>
-                          Rosario Baigen Juarez
-                        </p>
-                      </div>
-                    </div>
+                <div>
+                  <p className="text-4xl sm:text-5xl" style={{
+                    fontFamily: "'Alex Brush', cursive",
+                    color: '#8b6f47'
+                  }}>
+                    Rosario Baigen Juarez
+                  </p>
+                </div>
 
-                    {/* Mensaje adicional */}
-                    <div className="mt-6 pt-6 border-t-2" style={{ borderColor: '#e8d5c4' }}>
-                      <p className="text-center text-sm sm:text-base italic" style={{
-                        fontFamily: "'Crimson Text', serif",
-                        color: '#9b8b7a'
-                      }}>
-                        "Gracias por acompañarnos en este momento tan especial"
-                      </p>
-                    </div>
-                  </div>
+                {/* Mensaje adicional */}
+                <div className="mt-10 pt-6">
+                  <p className="text-center text-base sm:text-lg italic" style={{
+                    fontFamily: "'Alex Brush', cursive",
+                    color: '#9b8b7a',
+                    fontSize: '1.5rem'
+                  }}>
+                    "Gracias por acompañarnos en este momento tan especial"
+                  </p>
                 </div>
               </div>
+            </div>
 
 
 
