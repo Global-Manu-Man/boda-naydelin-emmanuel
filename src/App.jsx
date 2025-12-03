@@ -779,7 +779,7 @@ const FloralTop = () => (
                   fontSize: window.innerWidth < 640 ? '16px' : '18px',
                   color: '#6b5d52'
                 }}>
-                  <p className="mb-4 sm:mb-6">7:30 PM</p>
+                  <p className="mb-4 sm:mb-6">15:00 PM</p>
                 </div>
 
                 <div className="pt-2">
