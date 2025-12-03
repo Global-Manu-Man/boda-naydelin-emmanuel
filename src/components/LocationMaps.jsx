@@ -85,7 +85,7 @@ const LocationMaps = () => {
             background: 'linear-gradient(to bottom, rgba(245,241,237,0.3), transparent)'
           }}>
             <a
-              href="https://www.google.com/maps/dir/?api=1&destination=19.4326,-99.1332"
+              href="https://maps.app.goo.gl/HrYoNsCGY4TeSyUM9"
               target="_blank"
               rel="noopener noreferrer"
               className="inline-flex items-center space-x-2 px-6 py-2.5 rounded-full transition-all transform hover:scale-105 text-sm font-medium shadow-md"
@@ -164,7 +164,7 @@ const LocationMaps = () => {
             background: 'linear-gradient(to bottom, rgba(245,241,237,0.3), transparent)'
           }}>
             <a
-              href="https://www.google.com/maps/dir/?api=1&destination=19.4126,-99.1532"
+              href="https://maps.app.goo.gl/pRV7TUAx9p7N3gqH6"
               target="_blank"
               rel="noopener noreferrer"
               className="inline-flex items-center space-x-2 px-6 py-2.5 rounded-full transition-all transform hover:scale-105 text-sm font-medium shadow-md"
