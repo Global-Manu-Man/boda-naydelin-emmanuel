@@ -666,7 +666,7 @@ const FloralTop = () => (
                   fontSize: window.innerWidth < 640 ? '16px' : '18px',
                   color: '#6b5d52'
                 }}>
-                  <p className="mb-2">Sabado, 28 de Febrero de 2025</p>
+                  <p className="mb-2">Sabado, 28 de Febrero de 2026</p>
                   <p className="mb-4 sm:mb-6">1:00 PM</p>
                 </div>
 
@@ -1463,7 +1463,7 @@ const FloralTop = () => (
                 fontFamily: "'Crimson Text', serif",
                 color: '#9b8b7a'
               }}>
-                <span className="font-semibold" style={{ color: '#8b6f47' }}>#NaydelinYEmmanuel2025</span>
+                <span className="font-semibold" style={{ color: '#8b6f47' }}>#NaydelinYEmmanuel2026</span>
               </p>
             </div>
 
@@ -1482,7 +1482,7 @@ const FloralTop = () => (
                 fontFamily: "'Crimson Text', serif",
                 color: '#9b8b7a'
               }}>
-                28 de Febrero, 2025
+                28 de Febrero, 2026
               </p>
               <p className="text-xs mt-4 sm:mt-6" style={{
                 fontFamily: "'Crimson Text', serif",
