@@ -1268,15 +1268,7 @@ function App() {
               >
                 Confirma tu Asistencia
               </h2>
-              <p
-                className="mb-4 sm:mb-6 text-sm sm:text-base"
-                style={{
-                  fontFamily: "'Crimson Text', serif",
-                  color: "#6b5d52",
-                }}
-              >
-                Por favor, confírmanos antes del 15 de Febrero
-              </p>
+              
               {/* RSVP Form Instructions */}
               <div
                 className="p-6 rounded-xl border-2 mb-10"
@@ -1409,6 +1401,15 @@ function App() {
                   </li>
                 </ol>
               </div>
+              <p
+                className="mb-4 sm:mb-6 text-sm sm:text-base"
+                style={{
+                  fontFamily: "'Crimson Text', serif",
+                  color: "#6b5d52",
+                }}
+              >
+                Por favor, confírmanos antes del 15 de Febrero
+              </p>
 
               <div className="flex flex-col sm:flex-row justify-center gap-3 sm:gap-4">
                 <button
