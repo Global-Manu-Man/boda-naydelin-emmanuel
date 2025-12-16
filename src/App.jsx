@@ -93,92 +93,114 @@ function App() {
   };
 
   // Función para enviar a la API
-  const handleSubmitRSVP = async (e) => {
-    e.preventDefault();
+const handleSubmitRSVP = async (e) => {
+  e.preventDefault();
 
-    setSubmitStatus({ type: "", message: "" });
-    setIsSubmitting(true);
+  setSubmitStatus({ type: "", message: "" });
+  setIsSubmitting(true);
 
-    try {
-      if (rsvpForm.attending === "si") {
-        const allAdultsHaveNames = rsvpForm.adults.every(
-          (adult) => adult.name.trim() !== ""
-        );
-        if (!allAdultsHaveNames) {
-          setSubmitStatus({
-            type: "error",
-            message: "Por favor completa el nombre de todos los adultos",
-          });
-          setIsSubmitting(false);
-          return;
-        }
-      }
+  try {
+    // Si NO va a asistir, solo mostrar mensaje y cerrar
+    if (rsvpForm.attending === "no") {
+      setSubmitStatus({
+        type: "success",
+        message: "Gracias por confirmar. ¡Esperamos verte en otra ocasión! 💕",
+      });
 
-      const apiPayload = {
-        attending: rsvpForm.attending === "si",
-        numberOfAdults: parseInt(rsvpForm.adultsCount),
-        numberOfChildren: parseInt(rsvpForm.childrenCount),
-        adults: rsvpForm.adults.map((adult, index) => ({
-          fullName: adult.name.trim(),
-          allergies: adult.allergies?.trim() || "Ninguna",
-          menu: "CARNE",
-          adultOrder: index + 1,
-        })),
-        contactEmail: "invitado@boda.com",
-        contactPhone: "0000000000",
-        notes: "",
-      };
-
-      console.log("📤 Enviando a Railway:", apiPayload);
-
-      const response = await fetch(
-        "https://weddingrsvp-production.up.railway.app/api/v1/guests",
-        {
-          method: "POST",
-          headers: { "Content-Type": "application/json" },
-          body: JSON.stringify(apiPayload),
-        }
-      );
-
-      if (response.ok) {
-        const data = await response.json();
-        console.log("✅ Guardado exitosamente:", data);
-
-        setSubmitStatus({
-          type: "success",
-          message:
-            "¡Gracias por confirmar tu asistencia! Nos vemos el 28 de febrero 🎉",
+      setTimeout(() => {
+        setShowRSVPModal(false);
+        setRsvpForm({
+          attending: "si",
+          adultsCount: "1",
+          adults: [{ name: "", allergies: "", menu: "carne" }],
+          childrenCount: "0",
         });
+        setSubmitStatus({ type: "", message: "" });
+      }, 3000);
 
-        setTimeout(() => {
-          setShowRSVPModal(false);
-          setRsvpForm({
-            attending: "si",
-            adultsCount: "1",
-            adults: [{ name: "", allergies: "", menu: "carne" }],
-            childrenCount: "0",
-          });
-          setSubmitStatus({ type: "", message: "" });
-        }, 3000);
-      } else {
-        const errorData = await response.json().catch(() => ({}));
-        console.error("❌ Error de API:", errorData);
+      setIsSubmitting(false);
+      return; // Salir de la función sin enviar al API
+    }
 
-        setSubmitStatus({
-          type: "error",
-          message: errorData.message || "Hubo un problema. Intenta nuevamente.",
-        });
-      }
-    } catch (error) {
-      console.error("❌ Error de conexión:", error);
+    // Validación solo para los que SÍ van a asistir
+    const allAdultsHaveNames = rsvpForm.adults.every(
+      (adult) => adult.name.trim() !== ""
+    );
+    if (!allAdultsHaveNames) {
       setSubmitStatus({
         type: "error",
-        message: "No se pudo conectar. Verifica tu conexión.",
+        message: "Por favor completa el nombre de todos los adultos",
       });
-    } finally {
       setIsSubmitting(false);
+      return;
     }
-  };
+
+    // Preparar datos para el API (solo si attending === "si")
+    const apiPayload = {
+      attending: true,
+      numberOfAdults: parseInt(rsvpForm.adultsCount),
+      numberOfChildren: parseInt(rsvpForm.childrenCount),
+      adults: rsvpForm.adults.map((adult, index) => ({
+        fullName: adult.name.trim(),
+        allergies: adult.allergies?.trim() || "Ninguna",
+        menu: "CARNE",
+        adultOrder: index + 1,
+      })),
+      contactEmail: "invitado@boda.com",
+      contactPhone: "0000000000",
+      notes: "",
+    };
+
+    console.log("📤 Enviando a Railway:", apiPayload);
+
+    const response = await fetch(
+      "https://weddingrsvp-production.up.railway.app/api/v1/guests",
+      {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(apiPayload),
+      }
+    );
+
+    if (response.ok) {
+      const data = await response.json();
+      console.log("✅ Guardado exitosamente:", data);
+
+      setSubmitStatus({
+        type: "success",
+        message:
+          "¡Gracias por confirmar tu asistencia! Nos vemos el 28 de febrero 🎉",
+      });
+
+      setTimeout(() => {
+        setShowRSVPModal(false);
+        setRsvpForm({
+          attending: "si",
+          adultsCount: "1",
+          adults: [{ name: "", allergies: "", menu: "carne" }],
+          childrenCount: "0",
+        });
+        setSubmitStatus({ type: "", message: "" });
+      }, 3000);
+    } else {
+      const errorData = await response.json().catch(() => ({}));
+      console.error("❌ Error de API:", errorData);
+
+      setSubmitStatus({
+        type: "error",
+        message: errorData.message || "Hubo un problema. Intenta nuevamente.",
+      });
+    }
+  } catch (error) {
+    console.error("❌ Error de conexión:", error);
+    setSubmitStatus({
+      type: "error",
+      message: "No se pudo conectar. Verifica tu conexión.",
+    });
+  } finally {
+    setIsSubmitting(false);
+  }
+};
 
   // Watercolor floral SVG component - fully responsive
   const FloralTop = () => (
