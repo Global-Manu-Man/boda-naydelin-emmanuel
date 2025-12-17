@@ -192,8 +192,8 @@ App.jsx
    
    Editar `.env`:
    ```env
-   VITE_API_USERNAME=user
-   VITE_API_PASSWORD=password
+   VITE_API_USERNAME=usuario
+   VITE_API_PASSWORD=contraseña
    ```
 
 5. **Iniciar servidor de desarrollo**
@@ -389,9 +389,9 @@ Content-Type: application/json
 ### Autenticación
 
 **Basic Auth:**
-- Username: `user`
-- Password: `password`
-- Base64: `dXNlcjpwYXNzd29yZA==`
+- Username: `usuario`
+- Password: `contraseña`
+- Base64: `dXNlcjpwYdsidosndyZA==`
 
 **Header:**
 ```
@@ -426,8 +426,8 @@ Build command: npm run build
 Publish directory: dist
 
 # Variables de entorno
-VITE_API_USERNAME=user
-VITE_API_PASSWORD=password
+VITE_API_USERNAME=usuario
+VITE_API_PASSWORD=contraseña
 ```
 
 #### Vercel
@@ -435,8 +435,8 @@ VITE_API_PASSWORD=password
 # Configuración automática detecta Vite
 
 # Variables de entorno
-VITE_API_USERNAME=user
-VITE_API_PASSWORD=password
+VITE_API_USERNAME=usuario
+VITE_API_PASSWORD=contraseña
 ```
 
 #### Railway
@@ -445,8 +445,8 @@ VITE_API_PASSWORD=password
 npm run build
 
 # Variables de entorno en Variables tab
-VITE_API_USERNAME=user
-VITE_API_PASSWORD=password
+VITE_API_USERNAME=usuario
+VITE_API_PASSWORD=contraseña
 ```
 
 ### Variables de Entorno en Producción
@@ -454,8 +454,8 @@ VITE_API_PASSWORD=password
 Configurar en el dashboard de la plataforma:
 
 ```env
-VITE_API_USERNAME=user
-VITE_API_PASSWORD=password
+VITE_API_USERNAME=usuario
+VITE_API_PASSWORD=contraseña
 ```
 
 ---
