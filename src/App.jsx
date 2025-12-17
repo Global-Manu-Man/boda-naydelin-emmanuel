@@ -1,20 +1,13 @@
 import React, { useState, useEffect } from "react";
-import {
-  MapPin,
-  Clock,
-  Calendar,
-  Gift,
-  Phone,
-  Mail,
-  Instagram,
-  Facebook,
-} from "lucide-react";
+import { MapPin, Clock, Calendar, Gift, Phone, Mail, Instagram, Facebook } from 'lucide-react';
+import ContactModal from './components/ContactModal';
 import CountdownTimer from "./components/CountDown";
 import LocationMaps from "./components/LocationMaps";
 
 function App() {
   const [isOpened, setIsOpened] = useState(false);
   const [showRSVPModal, setShowRSVPModal] = useState(false);
+  const [showContactModal, setShowContactModal] = useState(false);
   const [showGiftModal, setShowGiftModal] = useState(false);
   const [timeLeft, setTimeLeft] = useState({
     days: 0,
@@ -93,114 +86,114 @@ function App() {
   };
 
   // Función para enviar a la API
-const handleSubmitRSVP = async (e) => {
-  e.preventDefault();
+  const handleSubmitRSVP = async (e) => {
+    e.preventDefault();
 
-  setSubmitStatus({ type: "", message: "" });
-  setIsSubmitting(true);
+    setSubmitStatus({ type: "", message: "" });
+    setIsSubmitting(true);
 
-  try {
-    // Si NO va a asistir, solo mostrar mensaje y cerrar
-    if (rsvpForm.attending === "no") {
-      setSubmitStatus({
-        type: "success",
-        message: "Gracias por confirmar. ¡Esperamos verte en otra ocasión! 💕",
-      });
-
-      setTimeout(() => {
-        setShowRSVPModal(false);
-        setRsvpForm({
-          attending: "si",
-          adultsCount: "1",
-          adults: [{ name: "", allergies: "", menu: "carne" }],
-          childrenCount: "0",
+    try {
+      // Si NO va a asistir, solo mostrar mensaje y cerrar
+      if (rsvpForm.attending === "no") {
+        setSubmitStatus({
+          type: "success",
+          message: "Gracias por confirmar. ¡Esperamos verte en otra ocasión! 💕",
         });
-        setSubmitStatus({ type: "", message: "" });
-      }, 3000);
 
-      setIsSubmitting(false);
-      return; // Salir de la función sin enviar al API
-    }
+        setTimeout(() => {
+          setShowRSVPModal(false);
+          setRsvpForm({
+            attending: "si",
+            adultsCount: "1",
+            adults: [{ name: "", allergies: "", menu: "carne" }],
+            childrenCount: "0",
+          });
+          setSubmitStatus({ type: "", message: "" });
+        }, 3000);
 
-    // Validación solo para los que SÍ van a asistir
-    const allAdultsHaveNames = rsvpForm.adults.every(
-      (adult) => adult.name.trim() !== ""
-    );
-    if (!allAdultsHaveNames) {
-      setSubmitStatus({
-        type: "error",
-        message: "Por favor completa el nombre de todos los adultos",
-      });
-      setIsSubmitting(false);
-      return;
-    }
-
-    // Preparar datos para el API (solo si attending === "si")
-    const apiPayload = {
-      attending: true,
-      numberOfAdults: parseInt(rsvpForm.adultsCount),
-      numberOfChildren: parseInt(rsvpForm.childrenCount),
-      adults: rsvpForm.adults.map((adult, index) => ({
-        fullName: adult.name.trim(),
-        allergies: adult.allergies?.trim() || "Ninguna",
-        menu: "CARNE",
-        adultOrder: index + 1,
-      })),
-      contactEmail: "invitado@boda.com",
-      contactPhone: "0000000000",
-      notes: "",
-    };
-
-    console.log("📤 Enviando a Railway:", apiPayload);
-
-    const response = await fetch(
-      "https://weddingrsvp-production.up.railway.app/api/v1/guests",
-      {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify(apiPayload),
+        setIsSubmitting(false);
+        return; // Salir de la función sin enviar al API
       }
-    );
 
-    if (response.ok) {
-      const data = await response.json();
-      console.log("✅ Guardado exitosamente:", data);
-
-      setSubmitStatus({
-        type: "success",
-        message:
-          "¡Gracias por confirmar tu asistencia! Nos vemos el 28 de febrero 🎉",
-      });
-
-      setTimeout(() => {
-        setShowRSVPModal(false);
-        setRsvpForm({
-          attending: "si",
-          adultsCount: "1",
-          adults: [{ name: "", allergies: "", menu: "carne" }],
-          childrenCount: "0",
+      // Validación solo para los que SÍ van a asistir
+      const allAdultsHaveNames = rsvpForm.adults.every(
+        (adult) => adult.name.trim() !== ""
+      );
+      if (!allAdultsHaveNames) {
+        setSubmitStatus({
+          type: "error",
+          message: "Por favor completa el nombre de todos los adultos",
         });
-        setSubmitStatus({ type: "", message: "" });
-      }, 3000);
-    } else {
-      const errorData = await response.json().catch(() => ({}));
-      console.error("❌ Error de API:", errorData);
+        setIsSubmitting(false);
+        return;
+      }
 
+      // Preparar datos para el API (solo si attending === "si")
+      const apiPayload = {
+        attending: true,
+        numberOfAdults: parseInt(rsvpForm.adultsCount),
+        numberOfChildren: parseInt(rsvpForm.childrenCount),
+        adults: rsvpForm.adults.map((adult, index) => ({
+          fullName: adult.name.trim(),
+          allergies: adult.allergies?.trim() || "Ninguna",
+          menu: "CARNE",
+          adultOrder: index + 1,
+        })),
+        contactEmail: "invitado@boda.com",
+        contactPhone: "0000000000",
+        notes: "",
+      };
+
+      console.log("📤 Enviando a Railway:", apiPayload);
+
+      const response = await fetch(
+        "https://weddingrsvp-production.up.railway.app/api/v1/guests",
+        {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify(apiPayload),
+        }
+      );
+
+      if (response.ok) {
+        const data = await response.json();
+        console.log("✅ Guardado exitosamente:", data);
+
+        setSubmitStatus({
+          type: "success",
+          message:
+            "¡Gracias por confirmar tu asistencia! Nos vemos el 28 de febrero 🎉",
+        });
+
+        setTimeout(() => {
+          setShowRSVPModal(false);
+          setRsvpForm({
+            attending: "si",
+            adultsCount: "1",
+            adults: [{ name: "", allergies: "", menu: "carne" }],
+            childrenCount: "0",
+          });
+          setSubmitStatus({ type: "", message: "" });
+        }, 3000);
+      } else {
+        const errorData = await response.json().catch(() => ({}));
+        console.error("❌ Error de API:", errorData);
+
+        setSubmitStatus({
+          type: "error",
+          message: errorData.message || "Hubo un problema. Intenta nuevamente.",
+        });
+      }
+    } catch (error) {
+      console.error("❌ Error de conexión:", error);
       setSubmitStatus({
         type: "error",
-        message: errorData.message || "Hubo un problema. Intenta nuevamente.",
+        message: "No se pudo conectar. Verifica tu conexión.",
       });
+    } finally {
+      setIsSubmitting(false);
     }
-  } catch (error) {
-    console.error("❌ Error de conexión:", error);
-    setSubmitStatus({
-      type: "error",
-      message: "No se pudo conectar. Verifica tu conexión.",
-    });
-  } finally {
-    setIsSubmitting(false);
-  }
-};
+  };
 
   // Watercolor floral SVG component - fully responsive
   const FloralTop = () => (
@@ -317,9 +310,8 @@ const handleSubmitRSVP = async (e) => {
           style={{
             width: Math.random() * 3 + 1 + "px",
             height: Math.random() * 3 + 1 + "px",
-            background: `rgba(${218 + Math.random() * 20}, ${
-              165 + Math.random() * 30
-            }, ${32 + Math.random() * 20}, ${0.2 + Math.random() * 0.3})`,
+            background: `rgba(${218 + Math.random() * 20}, ${165 + Math.random() * 30
+              }, ${32 + Math.random() * 20}, ${0.2 + Math.random() * 0.3})`,
             top: Math.random() * 100 + "%",
             left: Math.random() * 100 + "%",
             animation: `float ${3 + Math.random() * 4}s ease-in-out infinite`,
@@ -513,18 +505,16 @@ const handleSubmitRSVP = async (e) => {
               {/* Mensaje de estado (éxito o error) */}
               {submitStatus.message && (
                 <div
-                  className={`mb-6 p-4 rounded-lg ${
-                    submitStatus.type === "success"
-                      ? "bg-green-50 border-2 border-green-200"
-                      : "bg-red-50 border-2 border-red-200"
-                  }`}
+                  className={`mb-6 p-4 rounded-lg ${submitStatus.type === "success"
+                    ? "bg-green-50 border-2 border-green-200"
+                    : "bg-red-50 border-2 border-red-200"
+                    }`}
                 >
                   <p
-                    className={`text-sm sm:text-base font-semibold ${
-                      submitStatus.type === "success"
-                        ? "text-green-800"
-                        : "text-red-800"
-                    }`}
+                    className={`text-sm sm:text-base font-semibold ${submitStatus.type === "success"
+                      ? "text-green-800"
+                      : "text-red-800"
+                      }`}
                     style={{
                       fontFamily: "'Crimson Text', serif",
                     }}
@@ -549,11 +539,10 @@ const handleSubmitRSVP = async (e) => {
                   </label>
                   <div className="grid grid-cols-2 gap-3">
                     <label
-                      className={`relative flex items-center justify-center p-4 rounded-xl border-2 cursor-pointer transition-all duration-200 ${
-                        rsvpForm.attending === "si"
-                          ? "border-green-500 bg-green-50"
-                          : "border-gray-200 bg-white hover:border-green-300"
-                      }`}
+                      className={`relative flex items-center justify-center p-4 rounded-xl border-2 cursor-pointer transition-all duration-200 ${rsvpForm.attending === "si"
+                        ? "border-green-500 bg-green-50"
+                        : "border-gray-200 bg-white hover:border-green-300"
+                        }`}
                     >
                       <input
                         type="radio"
@@ -570,22 +559,20 @@ const handleSubmitRSVP = async (e) => {
                       />
                       <div className="flex items-center gap-2">
                         <div
-                          className={`w-5 h-5 rounded-full border-2 flex items-center justify-center ${
-                            rsvpForm.attending === "si"
-                              ? "border-green-500 bg-green-500"
-                              : "border-gray-300"
-                          }`}
+                          className={`w-5 h-5 rounded-full border-2 flex items-center justify-center ${rsvpForm.attending === "si"
+                            ? "border-green-500 bg-green-500"
+                            : "border-gray-300"
+                            }`}
                         >
                           {rsvpForm.attending === "si" && (
                             <div className="w-2 h-2 bg-white rounded-full"></div>
                           )}
                         </div>
                         <span
-                          className={`text-base font-semibold ${
-                            rsvpForm.attending === "si"
-                              ? "text-green-700"
-                              : "text-gray-600"
-                          }`}
+                          className={`text-base font-semibold ${rsvpForm.attending === "si"
+                            ? "text-green-700"
+                            : "text-gray-600"
+                            }`}
                           style={{ fontFamily: "'Crimson Text', serif" }}
                         >
                           Sí
@@ -594,11 +581,10 @@ const handleSubmitRSVP = async (e) => {
                     </label>
 
                     <label
-                      className={`relative flex items-center justify-center p-4 rounded-xl border-2 cursor-pointer transition-all duration-200 ${
-                        rsvpForm.attending === "no"
-                          ? "border-red-500 bg-red-50"
-                          : "border-gray-200 bg-white hover:border-red-300"
-                      }`}
+                      className={`relative flex items-center justify-center p-4 rounded-xl border-2 cursor-pointer transition-all duration-200 ${rsvpForm.attending === "no"
+                        ? "border-red-500 bg-red-50"
+                        : "border-gray-200 bg-white hover:border-red-300"
+                        }`}
                     >
                       <input
                         type="radio"
@@ -615,22 +601,20 @@ const handleSubmitRSVP = async (e) => {
                       />
                       <div className="flex items-center gap-2">
                         <div
-                          className={`w-5 h-5 rounded-full border-2 flex items-center justify-center ${
-                            rsvpForm.attending === "no"
-                              ? "border-red-500 bg-red-500"
-                              : "border-gray-300"
-                          }`}
+                          className={`w-5 h-5 rounded-full border-2 flex items-center justify-center ${rsvpForm.attending === "no"
+                            ? "border-red-500 bg-red-500"
+                            : "border-gray-300"
+                            }`}
                         >
                           {rsvpForm.attending === "no" && (
                             <div className="w-2 h-2 bg-white rounded-full"></div>
                           )}
                         </div>
                         <span
-                          className={`text-base font-semibold ${
-                            rsvpForm.attending === "no"
-                              ? "text-red-700"
-                              : "text-gray-600"
-                          }`}
+                          className={`text-base font-semibold ${rsvpForm.attending === "no"
+                            ? "text-red-700"
+                            : "text-gray-600"
+                            }`}
                           style={{ fontFamily: "'Crimson Text', serif" }}
                         >
                           No
@@ -786,11 +770,10 @@ const handleSubmitRSVP = async (e) => {
                   <button
                     type="submit"
                     disabled={isSubmitting}
-                    className={`w-full py-5 text-white rounded-2xl font-bold text-lg transition-all flex items-center justify-center gap-3 shadow-lg ${
-                      isSubmitting
-                        ? "opacity-60 cursor-not-allowed"
-                        : "hover:shadow-2xl transform hover:scale-[1.02] active:scale-[0.98]"
-                    }`}
+                    className={`w-full py-5 text-white rounded-2xl font-bold text-lg transition-all flex items-center justify-center gap-3 shadow-lg ${isSubmitting
+                      ? "opacity-60 cursor-not-allowed"
+                      : "hover:shadow-2xl transform hover:scale-[1.02] active:scale-[0.98]"
+                      }`}
                     style={{
                       background: isSubmitting
                         ? "linear-gradient(135deg, #9b8b7a 0%, #8b7b6a 100%)"
@@ -1290,7 +1273,7 @@ const handleSubmitRSVP = async (e) => {
               >
                 Confirma tu Asistencia
               </h2>
-              
+
               {/* RSVP Form Instructions */}
               <div
                 className="p-6 rounded-xl border-2 mb-10"
@@ -2280,7 +2263,7 @@ const handleSubmitRSVP = async (e) => {
               </p>
             </div>
 
-            {/* Footer */}
+            {/* Footer con botón de contacto */}
             <div
               className="text-center pt-8 sm:pt-12 border-t px-4"
               style={{ borderColor: "#e8d5c4" }}
@@ -2315,7 +2298,85 @@ const handleSubmitRSVP = async (e) => {
               >
                 Con todo nuestro amor ♥
               </p>
+
+              {/* Divisor decorativo */}
+              <div className="flex items-center justify-center my-6">
+                <div className="w-12 h-px bg-gradient-to-r from-transparent via-stone-300 to-transparent"></div>
+                <div className="mx-3 text-stone-300">✦</div>
+                <div className="w-12 h-px bg-gradient-to-r from-transparent via-stone-300 to-transparent"></div>
+              </div>
+
+              {/* Botón de contacto */}
+              {/* Botón de contacto - Opción 1: Elegante con brillo */}
+              <div className="mt-8 mb-6 px-4">
+                <p
+                  className="text-sm sm:text-base mb-5 animate-pulse"
+                  style={{
+                    fontFamily: "'Crimson Text', serif",
+                    color: "#9b8b7a",
+                  }}
+                >
+                  ¿Te gustó esta invitación digital?
+                </p>
+
+                <button
+                  onClick={() => setShowContactModal(true)}
+                  className="group relative w-full sm:w-auto sm:min-w-[280px] px-8 py-4 rounded-2xl overflow-hidden transition-all duration-500 transform hover:scale-105 hover:shadow-2xl text-base sm:text-lg font-semibold"
+                  style={{
+                    background: 'linear-gradient(135deg, #8b6f47 0%, #6d5838 50%, #8b6f47 100%)',
+                    backgroundSize: '200% 100%',
+                    color: 'white',
+                    fontFamily: "'Crimson Text', serif",
+                    boxShadow: '0 10px 30px rgba(139, 111, 71, 0.4)'
+                  }}
+                >
+                  {/* Efecto de brillo animado */}
+                  <span className="absolute inset-0 bg-gradient-to-r from-transparent via-white to-transparent opacity-0 group-hover:opacity-30 transition-opacity duration-700"
+                    style={{
+                      transform: 'translateX(-100%)',
+                      animation: 'shine 3s infinite'
+                    }}></span>
+
+                  {/* Contenido del botón */}
+                  <span className="relative flex items-center justify-center space-x-3">
+                    <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" className="group-hover:rotate-12 transition-transform duration-300">
+                      <path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z" />
+                    </svg>
+                    <span className="tracking-wide">Solicita la Tuya Aquí</span>
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" className="group-hover:translate-x-1 transition-transform duration-300">
+                      <polyline points="9 18 15 12 9 6"></polyline>
+                    </svg>
+                  </span>
+                </button>
+
+                <p
+                  className="text-xs sm:text-sm mt-4 italic leading-relaxed px-2"
+                  style={{
+                    fontFamily: "'Crimson Text', serif",
+                    color: "#b5a090",
+                  }}
+                >
+                  ✨ Creamos invitaciones digitales personalizadas para tu evento especial
+                </p>
+              </div>
+
+              {/* Agregar este estilo en el <head> o en index.css */}
+              <style>{`
+  @keyframes shine {
+    0% { transform: translateX(-100%); }
+    100% { transform: translateX(100%); }
+  }
+`}</style>
+
+
+
             </div>
+
+            {/* Contact Modal */}
+            <ContactModal
+              isOpen={showContactModal}
+              onClose={() => setShowContactModal(false)}
+            />
           </div>
         </div>
       </div>
