@@ -286,22 +286,6 @@ const ContactModal = ({ isOpen, onClose }) => {
             ></textarea>
           </div>
 
-          {/* WhatsApp tip */}
-          <div className="p-4 rounded-lg" style={{
-            background: 'linear-gradient(135deg, rgba(232, 245, 233, 0.5) 0%, rgba(200, 230, 201, 0.3) 100%)',
-            border: '1px solid #a5d6a7'
-          }}>
-            <p className="text-xs leading-relaxed flex items-start gap-2" style={{
-              fontFamily: "'Crimson Text', serif",
-              color: '#2e7d32'
-            }}>
-              <span className="text-base">💬</span>
-              <span>
-                <strong>Tip:</strong> También puedes escribirnos al WhatsApp si prefieres mantener una conversación mucho más rápida y fluida.
-              </span>
-            </p>
-          </div>
-
           {/* Status Messages */}
           {submitStatus.message && (
             <div 
@@ -320,11 +304,6 @@ const ContactModal = ({ isOpen, onClose }) => {
               </p>
             </div>
           )}
-
-          {/* Debug helper */}
-          <div className="text-xs text-gray-400 text-center italic">
-            💡 Abre la consola del navegador (F12) para ver los logs detallados
-          </div>
 
           {/* Buttons */}
           <div className="flex gap-3 pt-2">
