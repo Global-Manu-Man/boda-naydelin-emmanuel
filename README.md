@@ -630,7 +630,7 @@ Este proyecto está bajo la Licencia MIT. Ver archivo `LICENSE` para más detall
 ## 👥 Créditos
 
 ### Desarrollo
-- **Desarrollador:** Emmanuel (Citibank MX - Digital Software Engineering Senior Analyst)
+- **Desarrollador:** Emmanuel (Pakal Soluciones MX - Digital Software Engineering Senior Analyst)
 - **Diseño:** Personalizado para Naydelin & Emmanuel
 
 ### Tecnologías
@@ -663,7 +663,7 @@ Gracias a Naydelin y Emmanuel por confiar en este proyecto para celebrar su día
 
 <div align="center">
 
-**Hecho con ❤️ usando React + Vite**
+**Hecho con Emmanuel Sandoval usando React + Vite**
 
 [⬆ Volver arriba](#-invitación-digital-de-boda---naydelin--emmanuel)
 
