@@ -1134,7 +1134,7 @@ function App() {
                       color: "#8b6f47",
                     }}
                   >
-                    Salón "La Cantera"
+                    Salón Social Tlachinoltepetl
                   </p>
                   <p
                     className="text-sm"
@@ -1143,8 +1143,7 @@ function App() {
                       color: "#9b8b7a",
                     }}
                   >
-                    C. 9 Ricardo Flores Magón 108, La Garita, 94160 Chocamán,
-                    Ver.
+                    Guerrero, Chocaman, 94160 Chocamán, Ver.
                   </p>
                 </div>
               </div>
