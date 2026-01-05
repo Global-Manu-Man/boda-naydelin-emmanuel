@@ -38,14 +38,14 @@ const ContactModal = ({ isOpen, onClose }) => {
       const basicAuth = 'Basic ' + btoa(username + ':' + password);
 
       console.log('🔐 PASO 1: Obteniendo token CSRF...');
-      console.log('📍 URL CSRF:', 'https://form.myinvitacion.com.mx/api/csrf');
-      console.log('🔑 Authorization:', basicAuth);
+      console.log('🔗 URL CSRF:', 'https://form.myinvitacion.com.mx/api/csrf');
 
       // PASO 1: Obtener el token CSRF
       const csrfResponse = await fetch(
         'https://form.myinvitacion.com.mx/api/csrf',
         {
           method: 'GET',
+          credentials: 'include', // ← IMPORTANTE: Permite enviar/recibir cookies
           headers: {
             'Content-Type': 'application/json',
             'Authorization': basicAuth
@@ -54,12 +54,7 @@ const ContactModal = ({ isOpen, onClose }) => {
       );
 
       console.log('📡 CSRF Response Status:', csrfResponse.status);
-      console.log('📡 CSRF Response Status Text:', csrfResponse.statusText);
       console.log('📡 CSRF Response OK:', csrfResponse.ok);
-      console.log('📡 CSRF Response Headers:', {
-        contentType: csrfResponse.headers.get('content-type'),
-        contentLength: csrfResponse.headers.get('content-length')
-      });
 
       if (!csrfResponse.ok) {
         const errorText = await csrfResponse.text();
@@ -76,7 +71,6 @@ const ContactModal = ({ isOpen, onClose }) => {
       
       console.log('✅ Token CSRF obtenido:', csrfToken);
       console.log('📋 Header name:', headerName);
-      console.log('📋 Parameter name:', csrfData.parameterName);
 
       if (!csrfToken) {
         throw new Error('El token CSRF está vacío o undefined');
@@ -93,17 +87,12 @@ const ContactModal = ({ isOpen, onClose }) => {
       };
 
       console.log('📦 Payload:', JSON.stringify(apiPayload, null, 2));
-      console.log('📍 URL Formulario:', 'https://form.myinvitacion.com.mx/api/blog-forms');
-      console.log('📋 Headers que se enviarán:', {
-        'Content-Type': 'application/json',
-        'Authorization': basicAuth,
-        'X-XSRF-TOKEN': csrfToken
-      });
 
       const response = await fetch(
         'https://form.myinvitacion.com.mx/api/blog-forms',
         {
           method: 'POST',
+          credentials: 'include', // ← IMPORTANTE: Permite enviar/recibir cookies
           headers: {
             'Content-Type': 'application/json',
             'Authorization': basicAuth,
@@ -114,7 +103,6 @@ const ContactModal = ({ isOpen, onClose }) => {
       );
 
       console.log('📡 Form Response Status:', response.status);
-      console.log('📡 Form Response Status Text:', response.statusText);
       console.log('📡 Form Response OK:', response.ok);
 
       if (response.ok) {
@@ -154,12 +142,11 @@ const ContactModal = ({ isOpen, onClose }) => {
       console.error('❌ Error type:', error.constructor.name);
       console.error('❌ Error name:', error.name);
       console.error('❌ Error message:', error.message);
-      console.error('❌ Error stack:', error.stack);
 
       let errorMessage = error.message;
       
       if (error.name === 'TypeError' && error.message.includes('Failed to fetch')) {
-        errorMessage = 'Error de red o CORS. No se pudo conectar con el servidor.';
+        errorMessage = 'Error de red o CORS. No se pudo conectar con el servidor. Verifica que el servidor tenga CORS configurado correctamente.';
       }
 
       setSubmitStatus({
