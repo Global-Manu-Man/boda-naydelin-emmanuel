@@ -232,7 +232,7 @@ const LocationMaps = () => {
             }}
           >
             <a
-              href="https://maps.app.goo.gl/pRV7TUAx9p7N3gqH6"
+              href="https://maps.app.goo.gl/9VhjSrvNodfFwMaJ9"
               target="_blank"
               rel="noopener noreferrer"
               className="inline-flex items-center space-x-2 px-6 py-2.5 rounded-full transition-all transform hover:scale-105 text-sm font-medium shadow-md"
