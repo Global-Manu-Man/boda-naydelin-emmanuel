@@ -1149,35 +1149,6 @@ function App() {
               </div>
             </div>
 
-            {/* Dress code */}
-            <div className="text-center mb-12 sm:mb-16 px-4">
-              <h2
-                className="text-2xl sm:text-3xl mb-4 sm:mb-6"
-                style={{
-                  fontFamily: "'Cormorant', serif",
-                  color: "#8b6f47",
-                  fontWeight: "500",
-                }}
-              >
-                Formal
-              </h2>
-              <p
-                className="text-xs sm:text-sm leading-relaxed"
-                style={{
-                  fontFamily: "'Crimson Text', serif",
-                  color: "#9b8b7a",
-                }}
-              >
-                El honor de su presencia es lo más importante para nosotros.
-                <br />
-                Si deseas vestir de acuerdo al código formal, será bienvenido.
-              </p>
-              <div className="mt-4 flex justify-center space-x-6 sm:space-x-8 text-2xl sm:text-3xl opacity-60">
-                <span>👔</span>
-                <span>👗</span>
-              </div>
-            </div>
-
             {/* Personal message box */}
             <div
               className="mb-12 sm:mb-16 p-6 sm:p-8 border border-stone-200 rounded mx-2 sm:mx-0"
