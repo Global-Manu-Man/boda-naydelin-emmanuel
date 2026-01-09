@@ -2193,43 +2193,13 @@ function App() {
             {/* Social media */}
             <div className="text-center mb-10 sm:mb-12 px-4">
               <p
-                className="mb-4 text-sm sm:text-base"
-                style={{
-                  fontFamily: "'Crimson Text', serif",
-                  color: "#6b5d52",
-                }}
-              >
-                Comparte este momento especial con nosotros
-              </p>
-              <div className="flex justify-center space-x-4 mb-4">
-                <button
-                  className="w-10 h-10 rounded-full flex items-center justify-center text-white transition-all transform hover:scale-110"
-                  style={{
-                    background:
-                      "linear-gradient(45deg, #f09433 0%,#e6683c 25%,#dc2743 50%,#cc2366 75%,#bc1888 100%)",
-                  }}
-                >
-                  <Instagram className="w-5 h-5" />
-                </button>
-                <button
-                  className="w-10 h-10 rounded-full flex items-center justify-center text-white transition-all transform hover:scale-110"
-                  style={{
-                    background: "#1877f2",
-                  }}
-                >
-                  <Facebook className="w-5 h-5" />
-                </button>
-              </div>
-              <p
                 className="text-xs sm:text-sm"
                 style={{
                   fontFamily: "'Crimson Text', serif",
                   color: "#9b8b7a",
                 }}
               >
-                <span className="font-semibold" style={{ color: "#8b6f47" }}>
-                  #NaydelinYEmmanuel2026
-                </span>
+
               </p>
             </div>
 
