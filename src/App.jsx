@@ -1201,20 +1201,32 @@ function App() {
                 }}
               >
                 <div className="flex justify-between items-center border-b border-stone-200 pb-2 px-2 sm:px-0">
-                  <span>13:00 h</span>
-                  <span>Ceremonia</span>
+                  <span>13:00 hrs a 17:00 hrs</span>
+                  <span>Inicia la ceremonia religiosa.</span>
                 </div>
                 <div className="flex justify-between items-center border-b border-stone-200 pb-2 px-2 sm:px-0">
-                  <span>15:00 h</span>
-                  <span>Recepción</span>
+                  <span>15:00 hrs a 17:00 hrs</span>
+                  <span>Recepción.</span>
                 </div>
                 <div className="flex justify-between items-center border-b border-stone-200 pb-2 px-2 sm:px-0">
-                  <span>17:00 h</span>
-                  <span>Entrega de regalos</span>
+                  <span>16:30 hrs a 17:00 hrs</span>
+                  <span>Brindis familiar y Partida de pastel.</span>
                 </div>
                 <div className="flex justify-between items-center border-b border-stone-200 pb-2 px-2 sm:px-0">
-                  <span>18:00 h</span>
-                  <span>Vals y Fiesta</span>
+                  <span>17:20 hrs a 18:30 hrs</span>
+                  <span>Primer baile de los novios y familiar.</span>
+                </div>
+                <div className="flex justify-between items-center border-b border-stone-200 pb-2 px-2 sm:px-0">
+                  <span>18:30 hrs a 20:00 hrs</span>
+                  <span>Tirar el ramo, liguero,vibora de la mar.</span>
+                </div>
+                <div className="flex justify-between items-center border-b border-stone-200 pb-2 px-2 sm:px-0">
+                  <span>20:00 hrs a 20:50 hrs</span>
+                  <span>Cena.</span>
+                </div>
+                <div className="flex justify-between items-center border-b border-stone-200 pb-2 px-2 sm:px-0">
+                  <span>21:00 hrs a 23:30 hrs</span>
+                  <span>Inicia la fiesta, musica y diversión.</span>
                 </div>
               </div>
             </div>
