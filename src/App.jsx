@@ -2258,10 +2258,10 @@ function App() {
                 <div className="w-12 h-px bg-gradient-to-r from-transparent via-stone-300 to-transparent"></div>
               </div>
 
-              {/* Botón de contacto */}
-              {/* Botón de contacto - Opción 1: Elegante con brillo */}
+              {}
+              {}
               <div className="mt-8 mb-6 px-4">
-                <p
+                {/* <p
                   className="text-sm sm:text-base mb-5 animate-pulse"
                   style={{
                     fontFamily: "'Crimson Text', serif",
@@ -2269,9 +2269,9 @@ function App() {
                   }}
                 >
                   ¿Te gustó esta invitación digital?
-                </p>
+                </p> */}
 
-                <button
+                {/* <button
                   onClick={() => setShowContactModal(true)}
                   className="group relative w-full sm:w-auto sm:min-w-[280px] px-8 py-4 rounded-2xl overflow-hidden transition-all duration-500 transform hover:scale-105 hover:shadow-2xl text-base sm:text-lg font-semibold"
                   style={{
@@ -2282,14 +2282,15 @@ function App() {
                     boxShadow: '0 10px 30px rgba(139, 111, 71, 0.4)'
                   }}
                 >
-                  {/* Efecto de brillo animado */}
+
+                  { }
                   <span className="absolute inset-0 bg-gradient-to-r from-transparent via-white to-transparent opacity-0 group-hover:opacity-30 transition-opacity duration-700"
                     style={{
                       transform: 'translateX(-100%)',
                       animation: 'shine 3s infinite'
                     }}></span>
 
-                  {/* Contenido del botón */}
+                  { }
                   <span className="relative flex items-center justify-center space-x-3">
                     <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" className="group-hover:rotate-12 transition-transform duration-300">
                       <path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z" />
@@ -2299,7 +2300,7 @@ function App() {
                       <polyline points="9 18 15 12 9 6"></polyline>
                     </svg>
                   </span>
-                </button>
+                </button> */}
 
                 <p
                   className="text-xs sm:text-sm mt-4 italic leading-relaxed px-2"
